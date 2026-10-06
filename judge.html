@@ -1,317 +1,269 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Resolution Judge - Nivaran</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: { extend: { colors: { navy: '#1e2a4a', govblue: '#2563eb', govsky: '#60a5fa' } } }
-    }
-  </script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{navy:'#1a2332',govblue:'#2563eb'}}}}</script>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
-
-  <!-- Nav -->
-  <nav class="bg-navy text-white border-b border-slate-700">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-govblue rounded-lg flex items-center justify-center font-bold text-sm">N</div>
-        <span class="text-lg font-semibold tracking-tight">Nivaran</span>
-      </div>
-      <div class="flex gap-4 text-sm">
-        <a href="index.html" class="text-slate-300 hover:text-white">Home</a>
-        <a href="copilot.html" class="text-slate-300 hover:text-white">Copilot</a>
-        <a href="judge.html" class="text-white font-medium">Judge</a>
-      </div>
+<body class="bg-slate-50 font-sans text-slate-900 min-h-screen">
+  <nav class="bg-navy text-white px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-7 h-7 bg-govblue rounded-md flex items-center justify-center font-bold text-xs">N</div>
+      <span class="text-base font-semibold tracking-tight">Nivaran</span>
+    </div>
+    <div class="flex gap-1.5 text-sm">
+      <a href="index.html" class="px-3 py-1.5 rounded hover:bg-white/10">Dashboard</a>
+      <a href="copilot.html" class="px-3 py-1.5 rounded hover:bg-white/10">Copilot</a>
+      <a href="judge.html" class="px-3 py-1.5 rounded bg-white/15 font-medium">Judge</a>
     </div>
   </nav>
 
-  <!-- Header -->
-  <div class="bg-navy text-white py-8">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex items-center gap-2 mb-2">
-        <h1 class="text-2xl font-bold">Resolution Judge</h1>
-        <span class="px-2 py-0.5 bg-govblue/20 border border-govblue/40 text-govsky text-xs font-medium rounded-full">Live AI Evaluation</span>
+  <div class="max-w-5xl mx-auto px-5 py-8">
+    <div class="mb-6">
+      <div class="flex items-center gap-2">
+        <h1 class="text-xl font-bold">Resolution Judge</h1>
+        <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">Live Evaluation</span>
       </div>
-      <p class="text-slate-400 text-sm">Paste any complaint + officer response. AI evaluates quality against DARPG's five failure modes.</p>
+      <p class="text-slate-500 text-sm mt-0.5">Paste any complaint and officer response. AI evaluates against DARPG's five failure modes. | Model: Gemini 2.0 Flash Lite</p>
     </div>
-  </div>
 
-  <div class="max-w-6xl mx-auto px-6 py-8">
-
-    <!-- Input Section -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-2">Citizen Complaint</h2>
+    <!-- Input -->
+    <div class="grid lg:grid-cols-2 gap-4 mb-5">
+      <div class="bg-white rounded-lg border border-slate-200 p-5">
+        <h3 class="text-sm font-semibold mb-3">Citizen Complaint</h3>
         <div class="mb-3">
-          <label class="text-xs text-slate-400">Scheme</label>
-          <select id="scheme" class="mt-1 block w-full border border-slate-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-govblue">
-            <option>PM-KISAN</option>
-            <option>NSAP</option>
-            <option>EPFO</option>
-            <option>Passport</option>
-            <option>National Scholarship</option>
-            <option>Other</option>
+          <label class="text-xs font-medium text-slate-500">Scheme</label>
+          <select id="scheme" class="mt-1 block w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm outline-none focus:border-govblue">
+            <option>PM-KISAN</option><option>NSAP</option><option>EPFO</option><option>Passport</option><option>National Scholarship</option><option>Other</option>
           </select>
         </div>
-        <textarea id="complaint-input" rows="6" class="w-full border border-slate-200 rounded-lg p-3 text-sm leading-relaxed resize-y focus:outline-none focus:border-govblue" placeholder="Paste the citizen's complaint here..."></textarea>
-        <div class="mt-2 flex flex-wrap gap-2">
-          <span class="text-xs text-slate-400">Quick fill:</span>
-          <button onclick="fillComplaint(0)" class="px-2 py-0.5 border border-slate-200 rounded-full text-xs hover:border-govblue hover:text-govblue">PM-KISAN payment</button>
-          <button onclick="fillComplaint(1)" class="px-2 py-0.5 border border-slate-200 rounded-full text-xs hover:border-govblue hover:text-govblue">Widow pension</button>
-          <button onclick="fillComplaint(2)" class="px-2 py-0.5 border border-slate-200 rounded-full text-xs hover:border-govblue hover:text-govblue">EPS pension</button>
-        </div>
+        <textarea id="complaintText" rows="5" maxlength="5000" placeholder="Paste the citizen's complaint here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y">I have not received my PM-KISAN installment even though my application was approved three months ago. The portal only shows 'under process'.</textarea>
       </div>
 
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-        <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-2">Officer Response (ATR)</h2>
-        <textarea id="response-input" rows="6" class="w-full border border-slate-200 rounded-lg p-3 text-sm leading-relaxed resize-y focus:outline-none focus:border-govblue" placeholder="Paste the officer's response here..."></textarea>
-        <div class="mt-2 flex flex-wrap gap-2">
-          <span class="text-xs text-slate-400">Try:</span>
-          <button onclick="fillGood()" class="px-2 py-0.5 border border-green-200 bg-green-50 rounded-full text-xs text-green-700 hover:bg-green-100">Good response</button>
-          <button onclick="fillBoilerplate()" class="px-2 py-0.5 border border-red-200 bg-red-50 rounded-full text-xs text-red-700 hover:bg-red-100">Boilerplate response</button>
+      <div class="bg-white rounded-lg border border-slate-200 p-5">
+        <h3 class="text-sm font-semibold mb-3">Officer Response (ATR)</h3>
+        <textarea id="officerResponse" rows="7" maxlength="5000" placeholder="Paste the officer's response here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y"></textarea>
+        <div class="mt-2 flex flex-wrap gap-1.5">
+          <span class="text-[10px] text-slate-400">Try:</span>
+          <button onclick="fillGood()" class="text-[10px] border border-emerald-200 bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-emerald-100">Good response</button>
+          <button onclick="fillBad()" class="text-[10px] border border-red-200 bg-red-50 text-red-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-red-100">Boilerplate response</button>
         </div>
       </div>
     </div>
 
-    <!-- Evaluate Button -->
-    <button id="eval-btn" onclick="runEvaluation()" class="w-full bg-govblue text-white py-3 rounded-xl text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
-      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      Evaluate Response Quality
+    <button id="evalBtn" onclick="runEvaluation()" class="w-full bg-govblue text-white py-3 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
+      <span id="evalBtnText">Evaluate Response Quality</span>
     </button>
 
-    <!-- Loading -->
-    <div id="loading" style="display:none" class="text-center py-8">
-      <svg class="animate-spin h-8 w-8 text-govblue mx-auto" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>
-      <p class="mt-3 text-sm text-slate-500">Retrieving SOPs and evaluating response...</p>
-    </div>
-
-    <!-- Error -->
-    <div id="error-box" style="display:none" class="mt-6 bg-red-50 border border-red-200 rounded-xl p-4 text-sm text-red-700">
-      <span class="font-medium">Error:</span> <span id="error-text"></span>
+    <div id="errorBox" class="hidden mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+      <div id="errorMsg"></div>
+      <button onclick="runEvaluation()" class="mt-2 text-xs border border-red-300 rounded px-2 py-1 hover:bg-red-100">Try again</button>
     </div>
 
     <!-- Results -->
-    <div id="results" style="display:none" class="mt-6 space-y-6">
-
-      <!-- Score + Decision -->
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 flex items-center gap-6">
-          <div class="relative w-24 h-24 shrink-0">
-            <svg viewBox="0 0 80 80" class="w-full h-full -rotate-90" id="score-ring">
-              <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="8" fill="none"/>
-              <circle cx="40" cy="40" r="34" stroke="#2563eb" stroke-width="8" fill="none"
-                stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round"
-                id="score-arc" class="transition-all duration-1000"/>
-            </svg>
-            <div class="absolute inset-0 flex items-center justify-center">
-              <div class="text-center">
-                <div class="text-2xl font-bold" id="score-num">-</div>
-                <div class="text-[10px] text-slate-400 uppercase">/100</div>
+    <div id="results" class="hidden mt-6">
+      <div class="grid lg:grid-cols-3 gap-4 mb-4">
+        <!-- Score -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <h3 class="text-sm font-semibold mb-4">Quality Score</h3>
+          <div class="flex items-center gap-4">
+            <div class="relative w-24 h-24 shrink-0">
+              <svg viewBox="0 0 80 80" class="w-full h-full -rotate-90">
+                <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="8" fill="none"/>
+                <circle id="scoreRing" cx="40" cy="40" r="34" stroke="#2563eb" stroke-width="8" fill="none" stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" style="transition:stroke-dashoffset .7s ease"/>
+              </svg>
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="text-center">
+                  <div id="scoreNum" class="text-xl font-bold">-</div>
+                  <div class="text-[10px] text-slate-400 uppercase">/100</div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider">Verdict</div>
+              <div id="decision" class="mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full"></div>
+              <div class="mt-2 text-[10px] text-slate-400">
+                Score computed as average of 5 criteria.<br/>
+                Verdict: >=70 Resolved, 40-69 Likely Hollow, &lt;40 Definitely Hollow.
+              </div>
+              <div class="mt-1" id="modelBadge">
+                <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full"></span>
               </div>
             </div>
           </div>
-          <div>
-            <div class="text-xs text-slate-400 uppercase tracking-wide">AI Decision</div>
-            <div class="mt-1 px-3 py-1 rounded-full text-sm font-semibold inline-block" id="decision-badge">-</div>
-            <div class="mt-2 text-xs text-slate-400">Confidence: <span class="font-semibold text-slate-600" id="confidence-val">-</span>%</div>
-          </div>
         </div>
 
-        <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Evaluation Criteria</h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2" id="criteria-grid"></div>
+        <!-- Criteria -->
+        <div class="bg-white rounded-lg border border-slate-200 p-5 lg:col-span-2">
+          <h3 class="text-sm font-semibold mb-3">Evaluation Criteria (0-100 each)</h3>
+          <div id="criteriaGrid" class="grid sm:grid-cols-2 gap-2"></div>
         </div>
       </div>
 
-      <!-- Explanation + Failure Modes -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">AI Explanation</h3>
-          <p class="text-sm leading-relaxed text-slate-700" id="explanation-text">-</p>
+      <div class="grid lg:grid-cols-2 gap-4 mb-4">
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <h3 class="text-sm font-semibold mb-3">AI Explanation</h3>
+          <p id="explanation" class="text-sm leading-relaxed text-slate-700"></p>
+          <div id="sopNote" class="hidden mt-2 text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded px-2 py-1"></div>
         </div>
 
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-          <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Failure Modes Detected</h3>
-          <div id="failure-modes"></div>
+        <div class="bg-white rounded-lg border border-slate-200 p-5">
+          <h3 class="text-sm font-semibold mb-3">Failure Modes Detected</h3>
+          <div id="failureModes"></div>
+          <div class="mt-3 text-[10px] text-slate-400">
+            Checked against 5 DARPG-documented patterns: Status Restatement, Boilerplate, Deflection, Institutional Bias, Burden Transfer
+          </div>
         </div>
       </div>
 
       <!-- Cost -->
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
-        <h3 class="text-sm font-semibold uppercase tracking-wide text-slate-500 mb-3">Evaluation Cost (Live)</h3>
+      <div class="bg-white rounded-lg border border-slate-200 p-5">
+        <h3 class="text-sm font-semibold mb-3">Evaluation Cost (Live)</h3>
         <div class="grid grid-cols-3 gap-3 text-center">
-          <div class="bg-slate-50 rounded-lg p-3">
-            <div class="text-xl font-bold" id="j-cost-input">-</div>
-            <div class="text-[10px] uppercase tracking-wide text-slate-500">Input tokens</div>
+          <div class="bg-slate-50 rounded-lg p-2.5">
+            <div id="eInputTok" class="text-lg font-bold">-</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider">Input tokens</div>
           </div>
-          <div class="bg-slate-50 rounded-lg p-3">
-            <div class="text-xl font-bold" id="j-cost-output">-</div>
-            <div class="text-[10px] uppercase tracking-wide text-slate-500">Output tokens</div>
+          <div class="bg-slate-50 rounded-lg p-2.5">
+            <div id="eOutputTok" class="text-lg font-bold">-</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider">Output tokens</div>
           </div>
-          <div class="bg-blue-50 rounded-lg p-3">
-            <div class="text-xl font-bold text-govblue" id="j-cost-rupees">-</div>
-            <div class="text-[10px] uppercase tracking-wide text-slate-500">Cost (INR)</div>
+          <div class="bg-slate-50 rounded-lg p-2.5">
+            <div id="eCost" class="text-lg font-bold text-govblue">-</div>
+            <div class="text-[10px] text-slate-400 uppercase tracking-wider">Cost (INR)</div>
           </div>
         </div>
+        <p class="text-[10px] text-slate-400 text-center mt-2">Model: Gemini 2.0 Flash Lite | Free tier: 15 RPM | Paid: $0.075/M input, $0.30/M output</p>
       </div>
     </div>
+
+    <div class="text-center text-xs text-slate-400 mt-8">Nivaran &middot; Team True North &middot; GenAI Startup Sprint</div>
   </div>
 
 <script>
-const sampleComplaints = [
-  { text: "I have not received my PM-KISAN installment even though my application was approved three months ago. The portal only shows 'under process'.", scheme: "PM-KISAN" },
-  { text: "Widow pension not credited for 2 months. Bank passbook shows no entries. I am a 62-year-old widow with no other income.", scheme: "NSAP" },
-  { text: "My husband passed away 6 months ago. I have submitted all documents for EPS pension but the regional office says the file is still under process with no timeline given.", scheme: "EPFO" },
-];
+const goodDraft = "Dear Mr. Ramesh Kumar,\n\nThank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).\n\nWe have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.\n\nNext steps:\n1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.\n2. Once updated, submit a re-verification request at pmkisan.gov.in.\n3. Your installment will be re-processed in the next weekly NPCI batch (per SOP Section 4.2, typically within 7 working days).\n\nIf your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer (per SOP Section 3.1, within 7 working days).\n\nRegards,\nGrievance Cell, Department of Agriculture";
 
-const goodResponse = `Dear Mr. Ramesh Kumar,
+const badDraft = "Dear Applicant,\n\nYour complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.\n\nRegards,\nGrievance Cell";
 
-Thank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).
-
-We have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.
-
-Next steps:
-1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.
-2. Once updated, submit a re-verification request at pmkisan.gov.in under "Update Beneficiary Status".
-3. Your installment will be re-processed in the next weekly NPCI batch (typically within 7 working days).
-
-If your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer within 48 hours.
-
-Regards,
-Grievance Cell, Department of Agriculture`;
-
-const boilerplateResponse = `Dear Applicant,
-
-Your complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.
-
-Regards,
-Grievance Cell`;
-
-function fillComplaint(i) {
-  document.getElementById("complaint-input").value = sampleComplaints[i].text;
-  document.getElementById("scheme").value = sampleComplaints[i].scheme;
-}
-
-function fillGood() {
-  document.getElementById("response-input").value = goodResponse;
-  if (!document.getElementById("complaint-input").value) fillComplaint(0);
-}
-
-function fillBoilerplate() {
-  document.getElementById("response-input").value = boilerplateResponse;
-  if (!document.getElementById("complaint-input").value) fillComplaint(0);
-}
+function fillGood() { document.getElementById('officerResponse').value = goodDraft; }
+function fillBad() { document.getElementById('officerResponse').value = badDraft; }
 
 async function runEvaluation() {
-  const complaint = document.getElementById("complaint-input").value.trim();
-  const response = document.getElementById("response-input").value.trim();
-  const scheme = document.getElementById("scheme").value;
+  const comp = document.getElementById('complaintText').value.trim();
+  const resp = document.getElementById('officerResponse').value.trim();
 
-  if (!complaint || !response) {
-    alert("Please fill in both the complaint and officer response.");
-    return;
-  }
+  if (!comp || comp.length < 10) { alert('Please enter a complaint (at least 10 characters).'); return; }
+  if (!resp || resp.length < 10) { alert('Please enter an officer response (at least 10 characters).'); return; }
 
-  document.getElementById("eval-btn").style.display = "none";
-  document.getElementById("loading").style.display = "block";
-  document.getElementById("results").style.display = "none";
-  document.getElementById("error-box").style.display = "none";
+  const btn = document.getElementById('evalBtn');
+  btn.disabled = true;
+  document.getElementById('evalBtnText').innerHTML = '<svg class="w-4 h-4 animate-spin inline mr-1.5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Evaluating with AI...';
+  document.getElementById('results').classList.add('hidden');
+  document.getElementById('errorBox').classList.add('hidden');
 
   try {
-    const res = await fetch("/api/evaluate", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ complaintText: complaint, officerResponse: response, scheme }),
+    const res = await fetch('/api/evaluate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        complaintText: comp,
+        officerResponse: resp,
+        scheme: document.getElementById('scheme').value,
+      }),
     });
-
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || "API error");
+
+    if (!res.ok) {
+      document.getElementById('errorMsg').textContent = data.error || 'Evaluation failed.';
+      document.getElementById('errorBox').classList.remove('hidden');
+      if (data.retryable) {
+        document.getElementById('errorMsg').textContent += ' This may be temporary. Please try again.';
+      }
+      return;
+    }
 
     renderResults(data);
   } catch (err) {
-    document.getElementById("error-text").textContent = err.message;
-    document.getElementById("error-box").style.display = "block";
+    document.getElementById('errorMsg').textContent = 'Network error: ' + err.message;
+    document.getElementById('errorBox').classList.remove('hidden');
   } finally {
-    document.getElementById("loading").style.display = "none";
-    document.getElementById("eval-btn").style.display = "flex";
+    btn.disabled = false;
+    document.getElementById('evalBtnText').textContent = 'Evaluate Response Quality';
   }
 }
 
 function renderResults(data) {
+  document.getElementById('results').classList.remove('hidden');
+
   // Score ring
-  const score = data.overallScore || 0;
+  const score = data.overallScore;
+  const color = score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444';
   const circ = 2 * Math.PI * 34;
-  const offset = circ * (1 - score / 100);
-  const color = score >= 75 ? "#16a34a" : score >= 50 ? "#d97706" : "#dc2626";
-  const arc = document.getElementById("score-arc");
-  arc.setAttribute("stroke", color);
-  arc.setAttribute("stroke-dashoffset", offset);
-  document.getElementById("score-num").textContent = score;
-  document.getElementById("score-num").style.color = color;
+  document.getElementById('scoreRing').setAttribute('stroke', color);
+  document.getElementById('scoreRing').setAttribute('stroke-dashoffset', circ * (1 - score / 100));
+  document.getElementById('scoreNum').textContent = score;
 
   // Decision badge
-  const badge = document.getElementById("decision-badge");
-  badge.textContent = data.decision || "-";
-  if (data.decision === "Resolved") {
-    badge.className = "mt-1 px-3 py-1 rounded-full text-sm font-semibold inline-block bg-green-100 text-green-700";
+  const dec = document.getElementById('decision');
+  dec.textContent = data.decision;
+  if (data.decision === 'Resolved') {
+    dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200';
+  } else if (data.decision === 'Likely Hollow') {
+    dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200';
   } else {
-    badge.className = "mt-1 px-3 py-1 rounded-full text-sm font-semibold inline-block bg-red-100 text-red-700";
+    dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200';
   }
 
-  // Confidence
-  document.getElementById("confidence-val").textContent = data.confidence || 0;
+  // Model badge
+  document.getElementById('modelBadge').innerHTML =
+    '<span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">' +
+    (data.model || 'gemini') + ' | ' + (data.sopCount || 0) + ' SOP(s) checked</span>';
 
   // Criteria
-  const grid = document.getElementById("criteria-grid");
-  grid.innerHTML = (data.criteria || []).map(c => `
-    <div class="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-lg px-3 py-2">
-      ${c.ok
-        ? '<svg class="w-4 h-4 shrink-0 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
-        : '<svg class="w-4 h-4 shrink-0 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>'
-      }
-      <div class="flex-1 min-w-0">
-        <div class="text-sm font-medium text-slate-700 truncate">${c.name}</div>
-        <div class="mt-1 h-1 w-full rounded-full bg-slate-200 overflow-hidden">
-          <div class="h-full rounded-full ${c.ok ? 'bg-green-500' : 'bg-red-500'}" style="width:${c.score}%"></div>
-        </div>
-      </div>
-      <span class="text-xs font-semibold w-8 text-right tabular-nums">${c.score}</span>
-    </div>
-  `).join("");
+  document.getElementById('criteriaGrid').innerHTML = data.criteria.map(function(c) {
+    return '<div class="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">' +
+      '<span class="text-base ' + (c.ok ? 'text-emerald-500' : 'text-red-500') + '">' + (c.ok ? '&#10004;' : '&#10006;') + '</span>' +
+      '<div class="flex-1 min-w-0">' +
+      '<div class="text-sm font-medium truncate">' + c.name + '</div>' +
+      '<div class="mt-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">' +
+      '<div class="h-full rounded-full ' + (c.ok ? 'bg-emerald-500' : 'bg-red-500') + '" style="width:' + c.score + '%"></div>' +
+      '</div></div>' +
+      '<span class="text-xs font-semibold w-8 text-right tabular-nums">' + c.score + '</span></div>';
+  }).join('');
 
   // Explanation
-  document.getElementById("explanation-text").textContent = data.explanation || "-";
+  document.getElementById('explanation').textContent = data.explanation;
+
+  // SOP note
+  var sopNote = document.getElementById('sopNote');
+  if (data.sopCount === 0) {
+    sopNote.textContent = 'No scheme-specific SOPs were available for this evaluation. Scores are based on general quality criteria only.';
+    sopNote.classList.remove('hidden');
+  } else {
+    sopNote.classList.add('hidden');
+  }
 
   // Failure modes
-  const fmBox = document.getElementById("failure-modes");
+  var fmDiv = document.getElementById('failureModes');
   if (!data.failureModes || data.failureModes.length === 0) {
-    fmBox.innerHTML = `<div class="flex items-center gap-2 bg-green-50 border border-green-200 rounded-lg px-3 py-2 text-sm text-green-700">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      No hollow-closure failure modes detected.
-    </div>`;
+    fmDiv.innerHTML = '<div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 text-sm text-emerald-700"><span>&#10004;</span> No hollow-closure failure modes detected.</div>';
   } else {
-    fmBox.innerHTML = data.failureModes.map(fm => `
-      <div class="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm text-amber-800 mb-2">
-        <svg class="w-4 h-4 shrink-0 mt-0.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.232 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>
-        <span>${fm}</span>
-      </div>
-    `).join("");
+    fmDiv.innerHTML = data.failureModes.map(function(fm) {
+      return '<div class="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm text-amber-800 mb-1.5"><span class="mt-0.5">&#9888;</span> ' + fm + '</div>';
+    }).join('');
   }
 
   // Cost
   if (data.usage) {
-    document.getElementById("j-cost-input").textContent = data.usage.prompt_tokens;
-    document.getElementById("j-cost-output").textContent = data.usage.completion_tokens;
-    const costUSD = (data.usage.prompt_tokens * 0.15 / 1e6) + (data.usage.completion_tokens * 0.6 / 1e6);
-    document.getElementById("j-cost-rupees").textContent = "Rs " + (costUSD * 84).toFixed(2);
+    document.getElementById('eInputTok').textContent = data.usage.prompt_tokens;
+    document.getElementById('eOutputTok').textContent = data.usage.completion_tokens;
+    var cost = ((data.usage.prompt_tokens * 0.075 / 1e6) + (data.usage.completion_tokens * 0.30 / 1e6)) * 84;
+    document.getElementById('eCost').textContent = cost > 0.001 ? 'Rs ' + cost.toFixed(3) : 'Rs < 0.001 (free tier)';
   }
-
-  document.getElementById("results").style.display = "block";
 }
 </script>
-
 </body>
 </html>

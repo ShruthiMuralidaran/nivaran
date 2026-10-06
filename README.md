@@ -1,52 +1,64 @@
-# Nivaran - AI Grievance Resolution Quality Platform
+# Nivaran - AI Grievance Resolution Platform
+## Team True North | GenAI Startup Sprint
 
-AI-powered platform that evaluates government grievance responses and generates policy-grounded drafts.
+### What this is
+AI-powered platform that helps government officers write better grievance responses (Copilot) and evaluates whether closed complaints were genuinely resolved (Judge).
 
-## Setup (No terminal needed - everything in browser)
+### Tech Stack
+- Frontend: HTML + Tailwind CSS (no build step)
+- Backend: Vercel Serverless Functions (Node.js)
+- Database: Supabase (SOP document storage and retrieval)
+- AI Model: Google Gemini 2.0 Flash Lite
+- Pattern: Retrieval-Augmented Generation (RAG)
 
-### Step 1: Supabase Setup
-1. Go to [supabase.com](https://supabase.com) and open your project
-2. Go to **SQL Editor** → **New Query**
-3. Paste the contents of `supabase-setup.sql` and click **Run**
-4. Verify in **Table Editor** that `sop_documents` table has 8 rows
-
-### Step 2: Deploy to Vercel
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → Import this repo
-3. In **Environment Variables**, add:
-   - `SUPABASE_URL` = your Supabase project URL
-   - `SUPABASE_ANON_KEY` = your Supabase anon key
-   - `OPENAI_API_KEY` = your OpenAI API key
-4. Click **Deploy**
-
-### Step 3: Test
-- Visit your Vercel URL
-- Go to `/copilot.html` → Generate a draft
-- Go to `/judge.html` → Evaluate a response
-
-## Architecture
+### Architecture
 ```
-User → Vercel (static HTML) → /api/generate-draft or /api/evaluate
-                                    ↓
-                              Supabase (retrieve SOPs)
-                                    ↓
-                              OpenAI GPT-4o-mini (generate/evaluate)
-                                    ↓
-                              Response with citations + cost
+Officer enters complaint
+    |
+    v
+Vercel Serverless Function
+    |
+    +---> Supabase: retrieve matching SOPs (keyword search on scheme)
+    |
+    +---> Gemini 2.0 Flash Lite: generate/evaluate with SOP context
+    |         - Temperature: 0 (deterministic output)
+    |         - Scoring: computed in code, not by the model
+    |         - Verdict thresholds: >=70 Resolved, 40-69 Likely Hollow, <40 Definitely Hollow
+    |
+    v
+Response with citations + cost metrics
 ```
 
-## Cost
-- Per session: ~Rs 0.05 (5 paise)
-- At 10,000 users/month: ~Rs 1,500/month
+### Setup
 
-## Tech Stack
-- Frontend: HTML + Tailwind CSS (CDN)
-- Backend: Vercel Serverless Functions
-- Database: Supabase (PostgreSQL)
-- AI: OpenAI GPT-4o-mini
+1. **Supabase**: Create project, run `supabase-setup.sql` in SQL Editor
+2. **GitHub**: Push this repo
+3. **Vercel**: Import repo, add environment variables:
+   - `SUPABASE_URL` (from Supabase > Settings > API)
+   - `SUPABASE_ANON_KEY` (from Supabase > Settings > API)
+   - `GEMINI_API_KEY` (from aistudio.google.com)
 
-## API Keys
-Replace these in Vercel Environment Variables:
-- `SUPABASE_URL`
-- `SUPABASE_ANON_KEY`
-- `OPENAI_API_KEY`
+### Cost per session
+- Currently on Gemini free tier (zero cost, 15 RPM, 1500 req/day)
+- Paid tier: ~Rs 0.01-0.03 per session
+- At 10,000 users/month: Rs 500-900/month
+
+### Safety measures
+- No draft generated without retrieved SOP documents
+- All scores computed in code using fixed thresholds, not by the model
+- Input validation on all fields (length limits, required fields)
+- Retry logic on model failures
+- Failure modes restricted to 5 known DARPG-documented patterns
+
+### File Structure
+```
+index.html              Dashboard / landing page
+copilot.html            Resolution Copilot (RAG-powered draft generation)
+judge.html              Resolution Judge (AI quality evaluation)
+api/
+  generate-draft.js     Serverless: Supabase retrieval + Gemini draft
+  evaluate.js           Serverless: Supabase retrieval + Gemini evaluation
+vercel.json             Vercel routing config
+supabase-setup.sql      Database schema + 8 government SOPs
+README.md               This file (API keys go in Vercel env vars, not here)
+```

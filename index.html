@@ -1,171 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Nivaran - AI Grievance Resolution Quality Platform</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nivaran - AI Grievance Resolution Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            navy: '#1e2a4a',
-            govblue: '#2563eb',
-            govsky: '#60a5fa',
-          }
-        }
-      }
-    }
-  </script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{navy:'#1a2332',govblue:'#2563eb',govsky:'#3b82f6',slate50:'#f8fafc'}}}}</script>
   <style>
-    @keyframes fade-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .fade-up { animation: fade-up 0.5s ease-out both; }
-    .fade-up-2 { animation: fade-up 0.5s ease-out 0.15s both; }
-    .fade-up-3 { animation: fade-up 0.5s ease-out 0.3s both; }
+    @keyframes fade-up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .fu{animation:fade-up .45s ease-out both}.fu1{animation-delay:.08s}.fu2{animation-delay:.16s}.fu3{animation-delay:.24s}.fu4{animation-delay:.32s}
   </style>
 </head>
-<body class="bg-slate-50 text-slate-800 min-h-screen">
+<body class="bg-slate50 font-sans text-slate-900 min-h-screen">
 
   <!-- Nav -->
-  <nav class="bg-navy text-white border-b border-slate-700">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 bg-govblue rounded-lg flex items-center justify-center font-bold text-sm">N</div>
-        <span class="text-lg font-semibold tracking-tight">Nivaran</span>
-      </div>
-      <div class="flex gap-4 text-sm">
-        <a href="index.html" class="text-white font-medium">Home</a>
-        <a href="copilot.html" class="text-slate-300 hover:text-white">Copilot</a>
-        <a href="judge.html" class="text-slate-300 hover:text-white">Judge</a>
-      </div>
+  <nav class="bg-navy text-white px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-2.5">
+      <div class="w-7 h-7 bg-govblue rounded-md flex items-center justify-center font-bold text-xs">N</div>
+      <span class="text-base font-semibold tracking-tight">Nivaran</span>
+      <span class="text-[10px] bg-white/10 px-2 py-0.5 rounded ml-1.5 hidden sm:inline">AI Grievance Platform</span>
+    </div>
+    <div class="flex gap-1.5 text-sm">
+      <a href="index.html" class="px-3 py-1.5 rounded bg-white/15 font-medium">Dashboard</a>
+      <a href="copilot.html" class="px-3 py-1.5 rounded hover:bg-white/10 transition-colors">Copilot</a>
+      <a href="judge.html" class="px-3 py-1.5 rounded hover:bg-white/10 transition-colors">Judge</a>
     </div>
   </nav>
 
-  <!-- Hero -->
-  <div class="bg-navy text-white py-16">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h1 class="text-4xl font-bold tracking-tight fade-up">
-        AI-Powered Grievance Resolution Quality
-      </h1>
-      <p class="mt-4 text-lg text-slate-300 max-w-2xl mx-auto fade-up-2">
-        26.45 lakh grievances disposed yearly. Citizen satisfaction: only 50%.
-        Nivaran measures whether complaints are truly resolved, not just closed.
-      </p>
-    </div>
-  </div>
+  <div class="max-w-5xl mx-auto px-5 py-8">
 
-  <!-- Problem Stats -->
-  <div class="max-w-6xl mx-auto px-6 -mt-8">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 fade-up-2">
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 text-center">
-        <div class="text-2xl font-bold text-govblue">26.45L</div>
-        <div class="text-xs text-slate-500 mt-1 uppercase tracking-wide">Grievances disposed/year</div>
+    <div class="mb-7 fu">
+      <h1 class="text-xl font-bold">Command Center</h1>
+      <p class="text-slate-500 text-sm mt-0.5">Live view of grievance operations across departments and schemes</p>
+    </div>
+
+    <!-- KPIs -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-7">
+      <div class="bg-white rounded-lg border border-slate-200 p-4 fu fu1">
+        <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Active Complaints</div>
+        <div class="text-2xl font-bold mt-1.5">1,284</div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">+8.2% from yesterday</div>
       </div>
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 text-center">
-        <div class="text-2xl font-bold text-red-500">~50%</div>
-        <div class="text-xs text-slate-500 mt-1 uppercase tracking-wide">Citizen satisfaction</div>
+      <div class="bg-white rounded-lg border border-slate-200 p-4 fu fu2">
+        <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Avg Quality Score</div>
+        <div class="text-2xl font-bold mt-1.5">87.4<span class="text-sm font-normal text-slate-400">/100</span></div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">+3.1 this week</div>
       </div>
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 text-center">
-        <div class="text-2xl font-bold text-amber-500">8.59L</div>
-        <div class="text-xs text-slate-500 mt-1 uppercase tracking-wide">Repeat filings (20 categories)</div>
+      <div class="bg-white rounded-lg border border-slate-200 p-4 fu fu3">
+        <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Boilerplate Flagged</div>
+        <div class="text-2xl font-bold mt-1.5">142</div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">-12% from last week</div>
       </div>
-      <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5 text-center">
-        <div class="text-2xl font-bold text-green-500">13 days</div>
-        <div class="text-xs text-slate-500 mt-1 uppercase tracking-wide">Avg disposal time (speed works)</div>
+      <div class="bg-white rounded-lg border border-slate-200 p-4 fu fu4">
+        <div class="text-[11px] font-medium text-slate-400 uppercase tracking-wider">Repeat Complaints</div>
+        <div class="text-2xl font-bold mt-1.5">6.2%</div>
+        <div class="text-xs text-emerald-600 font-medium mt-1">-1.4% this month</div>
       </div>
     </div>
-  </div>
 
-  <!-- Problem Statement -->
-  <div class="max-w-4xl mx-auto px-6 mt-12 fade-up-3">
-    <div class="bg-amber-50 border border-amber-200 rounded-xl p-6">
-      <div class="text-sm font-semibold text-amber-800 uppercase tracking-wide mb-2">The Core Problem</div>
-      <p class="text-slate-700 leading-relaxed">
-        Government measures <strong>speed</strong> of complaint closure (average 13 days, which is good). 
-        Nobody measures <strong>quality</strong> of closure. An officer can write "advised suitably," mark it resolved, 
-        and the citizen's problem remains unsolved. The citizen re-files, and the cycle repeats.
-      </p>
-      <div class="mt-4 bg-white border border-amber-200 rounded-lg p-4 text-sm italic text-slate-600">
-        "Disposal-rate KPIs reward speed, not accuracy. Officers are scored on closing volume. 
-        Nothing in the current system scores whether the closure was true."
-        <div class="mt-1 text-xs text-amber-700 font-medium not-italic">- APFC, EPFO (Primary Interview)</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Two Features -->
-  <div class="max-w-6xl mx-auto px-6 mt-12 mb-16">
-    <h2 class="text-2xl font-bold text-center mb-8">Two AI Features, Deployed Together</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-      <!-- Copilot Card -->
-      <a href="copilot.html" class="group block bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md hover:border-govblue/30 transition-all">
+    <!-- Feature Cards -->
+    <div class="grid md:grid-cols-2 gap-4 mb-7">
+      <a href="copilot.html" class="bg-white rounded-lg border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all group fu fu2">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-govblue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-            </svg>
+          <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center text-govblue">
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
           </div>
-          <h3 class="text-lg font-semibold text-slate-800 group-hover:text-govblue">Resolution Copilot</h3>
+          <div>
+            <h2 class="font-semibold group-hover:text-govblue transition-colors">Resolution Copilot</h2>
+            <p class="text-xs text-slate-500">RAG-powered draft generation</p>
+          </div>
         </div>
-        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-          Retrieves relevant SOPs from database, generates a policy-grounded draft response with inline citations. 
-          Officer reviews, edits, and sends. No more boilerplate.
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">RAG</span>
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">GPT-4o-mini</span>
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">Supabase</span>
+        <p class="text-sm text-slate-600 leading-relaxed">Retrieves relevant SOPs from Supabase, generates a policy-grounded draft with inline citations. Officer reviews, edits, and sends.</p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">Supabase RAG</span>
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">GPT-4o-mini</span>
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">Live Citations</span>
         </div>
-        <div class="mt-4 text-sm font-medium text-govblue group-hover:underline">Try it live &rarr;</div>
       </a>
 
-      <!-- Judge Card -->
-      <a href="judge.html" class="group block bg-white rounded-xl shadow-sm border border-slate-200 p-6 hover:shadow-md hover:border-govblue/30 transition-all">
+      <a href="judge.html" class="bg-white rounded-lg border border-slate-200 p-5 hover:border-blue-300 hover:shadow-md transition-all group fu fu3">
         <div class="flex items-center gap-3 mb-3">
-          <div class="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
-            <svg class="w-5 h-5 text-govblue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
+          <div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center text-govblue">
+            <svg class="w-4.5 h-4.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h3 class="text-lg font-semibold text-slate-800 group-hover:text-govblue">Resolution Judge</h3>
+          <div>
+            <h2 class="font-semibold group-hover:text-govblue transition-colors">Resolution Judge</h2>
+            <p class="text-xs text-slate-500">AI quality evaluation</p>
+          </div>
         </div>
-        <p class="text-sm text-slate-600 leading-relaxed mb-4">
-          Paste any complaint + officer response. AI evaluates quality against DARPG's five documented failure modes. 
-          Returns score, failure patterns, and explanation.
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">5 Failure Modes</span>
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">AI Evaluation</span>
-          <span class="px-2 py-1 bg-blue-50 text-govblue text-xs font-medium rounded-full">Live Scoring</span>
+        <p class="text-sm text-slate-600 leading-relaxed">Evaluates any officer response against five DARPG-documented failure modes. Returns a quality score, failure pattern detection, and explanation.</p>
+        <div class="mt-3 flex flex-wrap gap-1.5">
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">5 Failure Modes</span>
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">SOP Grounded</span>
+          <span class="text-[10px] bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">Live Scoring</span>
         </div>
-        <div class="mt-4 text-sm font-medium text-govblue group-hover:underline">Try it live &rarr;</div>
       </a>
     </div>
-  </div>
 
-  <!-- Architecture Summary -->
-  <div class="bg-slate-100 border-t border-slate-200 py-12">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-xl font-bold mb-6">How It Works</h2>
-      <div class="flex flex-col md:flex-row items-center justify-center gap-3 text-sm">
-        <div class="bg-white border border-slate-200 rounded-lg px-4 py-3 font-medium">Officer enters complaint</div>
-        <div class="text-slate-400 text-lg">&rarr;</div>
-        <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 font-medium text-govblue">Supabase: Retrieve SOPs</div>
-        <div class="text-slate-400 text-lg">&rarr;</div>
-        <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-3 font-medium text-govblue">GPT-4o-mini: Generate / Evaluate</div>
-        <div class="text-slate-400 text-lg">&rarr;</div>
-        <div class="bg-green-50 border border-green-200 rounded-lg px-4 py-3 font-medium text-green-700">Grounded response / Quality score</div>
+    <!-- Architecture -->
+    <div class="bg-white rounded-lg border border-slate-200 p-5 fu fu4">
+      <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Architecture</h3>
+      <div class="flex flex-wrap items-center justify-center gap-2.5 text-sm">
+        <div class="bg-slate-100 rounded-lg px-4 py-2.5 font-medium text-center text-slate-700">Officer enters<br/>complaint</div>
+        <div class="text-slate-300 text-lg">&rarr;</div>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5 font-medium text-blue-800 text-center">Supabase<br/>retrieves SOPs</div>
+        <div class="text-slate-300 text-lg">&rarr;</div>
+        <div class="bg-blue-50 border border-blue-200 rounded-lg px-4 py-2.5 font-medium text-blue-800 text-center">Gemini 2.0 Flash Lite<br/>generates / evaluates</div>
+        <div class="text-slate-300 text-lg">&rarr;</div>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-2.5 font-medium text-emerald-800 text-center">Grounded response<br/>with citations</div>
       </div>
-      <p class="mt-6 text-xs text-slate-500">Cost per session: ~Rs 0.05 (5 paise) | At 10,000 users: ~Rs 1,500/month</p>
     </div>
+
+    <div class="text-center text-xs text-slate-400 mt-8">Nivaran &middot; Team True North &middot; GenAI Startup Sprint</div>
   </div>
-
-  <!-- Footer -->
-  <footer class="bg-navy text-slate-400 py-6 text-center text-xs">
-    Nivaran - Team True North | GenAI Startup Sprint | ISB 2027
-  </footer>
-
 </body>
 </html>
