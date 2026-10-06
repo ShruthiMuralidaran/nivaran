@@ -30,7 +30,6 @@
       <p class="text-slate-500 text-sm mt-0.5">Paste any complaint and officer response. AI evaluates against DARPG's five failure modes. | Model: Gemini 2.0 Flash Lite</p>
     </div>
 
-    <!-- Input -->
     <div class="grid lg:grid-cols-2 gap-4 mb-5">
       <div class="bg-white rounded-lg border border-slate-200 p-5">
         <h3 class="text-sm font-semibold mb-3">Citizen Complaint</h3>
@@ -58,15 +57,13 @@
       <span id="evalBtnText">Evaluate Response Quality</span>
     </button>
 
-    <div id="errorBox" class="hidden mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+    <div id="errorBox" class="hidden mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
       <div id="errorMsg"></div>
-      <button onclick="runEvaluation()" class="mt-2 text-xs border border-red-300 rounded px-2 py-1 hover:bg-red-100">Try again</button>
+      <button onclick="runEvaluation()" class="mt-2 text-xs border border-red-300 rounded px-3 py-1 hover:bg-red-100">Try again</button>
     </div>
 
-    <!-- Results -->
     <div id="results" class="hidden mt-6">
       <div class="grid lg:grid-cols-3 gap-4 mb-4">
-        <!-- Score -->
         <div class="bg-white rounded-lg border border-slate-200 p-5">
           <h3 class="text-sm font-semibold mb-4">Quality Score</h3>
           <div class="flex items-center gap-4">
@@ -86,17 +83,14 @@
               <div class="text-xs text-slate-400 uppercase tracking-wider">Verdict</div>
               <div id="decision" class="mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full"></div>
               <div class="mt-2 text-[10px] text-slate-400">
-                Score computed as average of 5 criteria.<br/>
-                Verdict: >=70 Resolved, 40-69 Likely Hollow, &lt;40 Definitely Hollow.
+                Score = average of 5 criteria.<br/>
+                >=70 Resolved | 40-69 Likely Hollow | &lt;40 Definitely Hollow
               </div>
-              <div class="mt-1" id="modelBadge">
-                <span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full"></span>
-              </div>
+              <div class="mt-1" id="modelBadge"></div>
             </div>
           </div>
         </div>
 
-        <!-- Criteria -->
         <div class="bg-white rounded-lg border border-slate-200 p-5 lg:col-span-2">
           <h3 class="text-sm font-semibold mb-3">Evaluation Criteria (0-100 each)</h3>
           <div id="criteriaGrid" class="grid sm:grid-cols-2 gap-2"></div>
@@ -119,7 +113,6 @@
         </div>
       </div>
 
-      <!-- Cost -->
       <div class="bg-white rounded-lg border border-slate-200 p-5">
         <h3 class="text-sm font-semibold mb-3">Evaluation Cost (Live)</h3>
         <div class="grid grid-cols-3 gap-3 text-center">
@@ -144,28 +137,28 @@
   </div>
 
 <script>
-const goodDraft = "Dear Mr. Ramesh Kumar,\n\nThank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).\n\nWe have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.\n\nNext steps:\n1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.\n2. Once updated, submit a re-verification request at pmkisan.gov.in.\n3. Your installment will be re-processed in the next weekly NPCI batch (per SOP Section 4.2, typically within 7 working days).\n\nIf your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer (per SOP Section 3.1, within 7 working days).\n\nRegards,\nGrievance Cell, Department of Agriculture";
+var goodDraft = "Dear Mr. Ramesh Kumar,\n\nThank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).\n\nWe have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.\n\nNext steps:\n1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.\n2. Once updated, submit a re-verification request at pmkisan.gov.in.\n3. Your installment will be re-processed in the next weekly NPCI batch (per SOP Section 4.2, typically within 7 working days).\n\nIf your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer (per SOP Section 3.1, within 7 working days).\n\nRegards,\nGrievance Cell, Department of Agriculture";
 
-const badDraft = "Dear Applicant,\n\nYour complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.\n\nRegards,\nGrievance Cell";
+var badDraft = "Dear Applicant,\n\nYour complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.\n\nRegards,\nGrievance Cell";
 
 function fillGood() { document.getElementById('officerResponse').value = goodDraft; }
 function fillBad() { document.getElementById('officerResponse').value = badDraft; }
 
 async function runEvaluation() {
-  const comp = document.getElementById('complaintText').value.trim();
-  const resp = document.getElementById('officerResponse').value.trim();
+  var comp = document.getElementById('complaintText').value.trim();
+  var resp = document.getElementById('officerResponse').value.trim();
 
   if (!comp || comp.length < 10) { alert('Please enter a complaint (at least 10 characters).'); return; }
   if (!resp || resp.length < 10) { alert('Please enter an officer response (at least 10 characters).'); return; }
 
-  const btn = document.getElementById('evalBtn');
+  var btn = document.getElementById('evalBtn');
   btn.disabled = true;
   document.getElementById('evalBtnText').innerHTML = '<svg class="w-4 h-4 animate-spin inline mr-1.5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Evaluating with AI...';
   document.getElementById('results').classList.add('hidden');
   document.getElementById('errorBox').classList.add('hidden');
 
   try {
-    const res = await fetch('/api/evaluate', {
+    var res = await fetch('/api/evaluate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -174,20 +167,21 @@ async function runEvaluation() {
         scheme: document.getElementById('scheme').value,
       }),
     });
-    const data = await res.json();
+    var data = await res.json();
 
     if (!res.ok) {
-      document.getElementById('errorMsg').textContent = data.error || 'Evaluation failed.';
-      document.getElementById('errorBox').classList.remove('hidden');
-      if (data.retryable) {
-        document.getElementById('errorMsg').textContent += ' This may be temporary. Please try again.';
+      var errHtml = '<div class="font-medium">' + (data.error || 'Evaluation failed.') + '</div>';
+      if (data.hint) {
+        errHtml += '<div class="mt-1 text-xs text-red-600">' + data.hint + '</div>';
       }
+      document.getElementById('errorMsg').innerHTML = errHtml;
+      document.getElementById('errorBox').classList.remove('hidden');
       return;
     }
 
     renderResults(data);
   } catch (err) {
-    document.getElementById('errorMsg').textContent = 'Network error: ' + err.message;
+    document.getElementById('errorMsg').innerHTML = '<div class="font-medium">Network error: ' + err.message + '</div>';
     document.getElementById('errorBox').classList.remove('hidden');
   } finally {
     btn.disabled = false;
@@ -198,16 +192,14 @@ async function runEvaluation() {
 function renderResults(data) {
   document.getElementById('results').classList.remove('hidden');
 
-  // Score ring
-  const score = data.overallScore;
-  const color = score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444';
-  const circ = 2 * Math.PI * 34;
+  var score = data.overallScore;
+  var color = score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444';
+  var circ = 2 * Math.PI * 34;
   document.getElementById('scoreRing').setAttribute('stroke', color);
   document.getElementById('scoreRing').setAttribute('stroke-dashoffset', circ * (1 - score / 100));
   document.getElementById('scoreNum').textContent = score;
 
-  // Decision badge
-  const dec = document.getElementById('decision');
+  var dec = document.getElementById('decision');
   dec.textContent = data.decision;
   if (data.decision === 'Resolved') {
     dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200';
@@ -217,12 +209,10 @@ function renderResults(data) {
     dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200';
   }
 
-  // Model badge
   document.getElementById('modelBadge').innerHTML =
     '<span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">' +
     (data.model || 'gemini') + ' | ' + (data.sopCount || 0) + ' SOP(s) checked</span>';
 
-  // Criteria
   document.getElementById('criteriaGrid').innerHTML = data.criteria.map(function(c) {
     return '<div class="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">' +
       '<span class="text-base ' + (c.ok ? 'text-emerald-500' : 'text-red-500') + '">' + (c.ok ? '&#10004;' : '&#10006;') + '</span>' +
@@ -234,19 +224,16 @@ function renderResults(data) {
       '<span class="text-xs font-semibold w-8 text-right tabular-nums">' + c.score + '</span></div>';
   }).join('');
 
-  // Explanation
   document.getElementById('explanation').textContent = data.explanation;
 
-  // SOP note
   var sopNote = document.getElementById('sopNote');
   if (data.sopCount === 0) {
-    sopNote.textContent = 'No scheme-specific SOPs were available for this evaluation. Scores are based on general quality criteria only.';
+    sopNote.textContent = 'No scheme-specific SOPs were available. Scores are based on general quality criteria only.';
     sopNote.classList.remove('hidden');
   } else {
     sopNote.classList.add('hidden');
   }
 
-  // Failure modes
   var fmDiv = document.getElementById('failureModes');
   if (!data.failureModes || data.failureModes.length === 0) {
     fmDiv.innerHTML = '<div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 text-sm text-emerald-700"><span>&#10004;</span> No hollow-closure failure modes detected.</div>';
@@ -256,7 +243,6 @@ function renderResults(data) {
     }).join('');
   }
 
-  // Cost
   if (data.usage) {
     document.getElementById('eInputTok').textContent = data.usage.prompt_tokens;
     document.getElementById('eOutputTok').textContent = data.usage.completion_tokens;
