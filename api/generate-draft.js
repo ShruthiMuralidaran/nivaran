@@ -47,7 +47,7 @@ export default async function handler(req, res) {
         citations: [],
         usage: { prompt_tokens: 0, completion_tokens: 0, total_tokens: 0 },
         sopCount: 0,
-        model: "gemini-2.0-flash-lite",
+        model: "gemini-3.5-flash-lite",
       });
     }
 
