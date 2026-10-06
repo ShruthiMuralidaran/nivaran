@@ -87,7 +87,7 @@ Every factual claim must cite its source document.`;
 
     // --- Call Gemini ---
     const geminiRes = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${geminiKey}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${geminiKey}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -128,7 +128,7 @@ Every factual claim must cite its source document.`;
         total_tokens: usage.totalTokenCount || 0,
       },
       sopCount: sops.length,
-      model: "gemini-2.0-flash-lite",
+      model: "gemini-3.5-flash-lite",
     });
 
   } catch (err) {
