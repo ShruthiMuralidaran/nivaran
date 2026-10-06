@@ -1,95 +1,69 @@
 export default async function handler(req, res) {
-  // Only allow POST
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
   try {
     const { complaintId, citizenName, scheme, department, complaintText } = req.body;
-
-    // --- 1. Retrieve relevant SOPs from Supabase ---
     const supabaseUrl = process.env.SUPABASE_URL;
     const supabaseKey = process.env.SUPABASE_ANON_KEY;
+    const geminiKey = process.env.GEMINI_API_KEY;
 
-    // Search by scheme match
-    const sopResponse = await fetch(
+    // 1. Retrieve SOPs from Supabase
+    const sopRes = await fetch(
       `${supabaseUrl}/rest/v1/sop_documents?scheme=ilike.*${encodeURIComponent(scheme)}*&select=scheme,section,body&limit=5`,
-      {
-        headers: {
-          apikey: supabaseKey,
-          Authorization: `Bearer ${supabaseKey}`,
-        },
-      }
+      { headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}` } }
     );
-    const sops = await sopResponse.json();
+    const sops = await sopRes.json();
+    const sopContext = sops.length > 0
+      ? sops.map((s, i) => `[Source ${i+1}] ${s.scheme} - ${s.section}\n${s.body}`).join("\n\n")
+      : "No specific SOP documents found. Use general government communication guidelines.";
 
-    const sopContext =
-      sops.length > 0
-        ? sops
-            .map((s, i) => `[Source ${i + 1}] ${s.scheme} - ${s.section}\n${s.body}`)
-            .join("\n\n")
-        : "No specific SOP documents found. Use general government communication guidelines.";
-
-    // --- 2. Build prompt and call OpenAI ---
-    const systemPrompt = `You are Nivaran Copilot, an AI assistant that helps government Grievance Redressal Officers (GROs) draft responses to citizen complaints.
+    // 2. Call Gemini
+    const prompt = `You are Nivaran Copilot, an AI assistant that helps government Grievance Redressal Officers draft responses to citizen complaints.
 
 CRITICAL RULES:
-- ONLY use facts from the RETRIEVED DOCUMENTS below. Never invent policies, dates, amounts, or procedures.
-- Every claim must be traceable to a specific SOP section. Cite sections inline like (per SOP Section X.Y).
-- Provide SPECIFIC next steps the citizen can take, with timelines where available.
-- Address the citizen by name. Reference their specific complaint details.
-- Never use boilerplate phrases like "forwarded to concerned department" or "advised suitably".
-- Be empathetic but precise. Use formal but clear language.
+- ONLY use facts from the RETRIEVED DOCUMENTS below. Never invent policies.
+- Cite SOP sections inline like (per SOP Section X.Y).
+- Provide SPECIFIC next steps with timelines.
+- Address the citizen by name.
+- Never use boilerplate like "forwarded to concerned department" or "advised suitably".
 
 RETRIEVED DOCUMENTS:
-${sopContext}`;
+${sopContext}
 
-    const userPrompt = `Draft a response for this citizen complaint:
-
+COMPLAINT:
 Complaint ID: ${complaintId}
 Citizen: ${citizenName}
 Scheme: ${scheme}
 Department: ${department}
 Complaint: "${complaintText}"
 
-Start with "Dear Mr./Ms. ${citizenName}," and end with "Regards, Grievance Cell, Department of ${department}".`;
+Draft a response. Start with "Dear Mr./Ms. ${citizenName}," and end with "Regards, Grievance Cell, Department of ${department}".`;
 
-    const openaiRes = await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({
-        model: "gpt-4o-mini",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        temperature: 0.3,
-        max_tokens: 1500,
-      }),
-    });
+    const geminiRes = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: { temperature: 0.3, maxOutputTokens: 1500 }
+        }),
+      }
+    );
+    const geminiData = await geminiRes.json();
+    if (!geminiRes.ok) return res.status(500).json({ error: "Gemini error", details: geminiData });
 
-    const openaiData = await openaiRes.json();
-
-    if (!openaiRes.ok) {
-      return res.status(500).json({ error: "OpenAI API error", details: openaiData });
-    }
-
-    // --- 3. Return draft + citations + usage ---
-    const citations = sops.map((s) => ({
-      source: s.scheme,
-      section: s.section,
-    }));
+    const draft = geminiData.candidates[0].content.parts[0].text;
+    const usage = geminiData.usageMetadata || {};
 
     return res.status(200).json({
-      draft: openaiData.choices[0].message.content,
-      citations,
-      usage: openaiData.usage,
+      draft,
+      citations: sops.map(s => ({ source: s.scheme, section: s.section })),
+      usage: {
+        prompt_tokens: usage.promptTokenCount || 0,
+        completion_tokens: usage.candidatesTokenCount || 0,
+        total_tokens: usage.totalTokenCount || 0,
+      },
       sopCount: sops.length,
     });
-  } catch (err) {
-    return res.status(500).json({ error: err.message });
-  }
+  } catch (err) { return res.status(500).json({ error: err.message }); }
 }
