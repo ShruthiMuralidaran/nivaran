@@ -224,7 +224,7 @@ Return ONLY this JSON structure, no other text:
         completion_tokens: usage.candidatesTokenCount || 0,
         total_tokens: usage.totalTokenCount || 0,
       },
-      model: "gemini-2.0-flash-lite",
+      model: "gemini-3.5-flash-lite",
       sopCount: sops.length,
     });
 
