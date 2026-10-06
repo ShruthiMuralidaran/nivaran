@@ -6,18 +6,27 @@
   <title>Resolution Judge - Nivaran</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{navy:'#1a2332',govblue:'#2563eb'}}}}</script>
+  <script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif']},colors:{navy:'#1a2332',govblue:'#2563eb',govsky:'#3b82f6'}}}}</script>
 </head>
 <body class="bg-slate-50 font-sans text-slate-900 min-h-screen">
-  <nav class="bg-navy text-white px-6 py-3.5 flex items-center justify-between">
-    <div class="flex items-center gap-2.5">
-      <div class="w-7 h-7 bg-govblue rounded-md flex items-center justify-center font-bold text-xs">N</div>
+
+  <nav class="bg-navy text-white px-6 py-3 flex items-center justify-between border-b border-white/10">
+    <a href="index.html" class="flex items-center gap-2.5">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 shadow-md shadow-blue-900/40 ring-1 ring-white/20 flex items-center justify-center">
+        <svg style="width:18px;height:18px" class="text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+      </div>
       <span class="text-base font-semibold tracking-tight">Nivaran</span>
-    </div>
-    <div class="flex gap-1.5 text-sm">
-      <a href="index.html" class="px-3 py-1.5 rounded hover:bg-white/10">Dashboard</a>
-      <a href="copilot.html" class="px-3 py-1.5 rounded hover:bg-white/10">Copilot</a>
-      <a href="judge.html" class="px-3 py-1.5 rounded bg-white/15 font-medium">Judge</a>
+    </a>
+    <div class="flex items-center gap-1 bg-white/5 ring-1 ring-white/10 rounded-full p-1">
+      <a href="index.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm transition-all text-slate-300 hover:text-white hover:bg-white/10">
+        <svg style="width:15px;height:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13h8V3H3zM13 21h8v-8h-8zM3 21h8v-6H3zM13 11h8V3h-8z"/></svg>Dashboard
+      </a>
+      <a href="copilot.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm transition-all text-slate-300 hover:text-white hover:bg-white/10">
+        <svg style="width:15px;height:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg>Copilot
+      </a>
+      <a href="judge.html" class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm transition-all bg-white text-navy shadow-sm font-semibold">
+        <svg style="width:15px;height:15px" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg>Judge
+      </a>
     </div>
   </nav>
 
@@ -27,9 +36,10 @@
         <h1 class="text-xl font-bold">Resolution Judge</h1>
         <span class="text-[10px] bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-medium">Live Evaluation</span>
       </div>
-      <p class="text-slate-500 text-sm mt-0.5">Paste any complaint and officer response. AI evaluates against DARPG's five failure modes. | Model: Gemini 2.0 Flash Lite</p>
+      <p class="text-slate-500 text-sm mt-0.5">Paste any complaint and officer response. AI evaluates against DARPG's five failure modes.</p>
     </div>
 
+    <!-- Input Section -->
     <div class="grid lg:grid-cols-2 gap-4 mb-5">
       <div class="bg-white rounded-lg border border-slate-200 p-5">
         <h3 class="text-sm font-semibold mb-3">Citizen Complaint</h3>
@@ -39,38 +49,40 @@
             <option>PM-KISAN</option><option>NSAP</option><option>EPFO</option><option>Passport</option><option>National Scholarship</option><option>Other</option>
           </select>
         </div>
-        <textarea id="complaintText" rows="5" maxlength="5000" placeholder="Paste the citizen's complaint here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y">I have not received my PM-KISAN installment even though my application was approved three months ago. The portal only shows 'under process'.</textarea>
+        <textarea id="complaintText" rows="5" placeholder="Paste the citizen's complaint here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y">I have not received my PM-KISAN installment even though my application was approved three months ago. The portal only shows 'under process'.</textarea>
       </div>
 
       <div class="bg-white rounded-lg border border-slate-200 p-5">
         <h3 class="text-sm font-semibold mb-3">Officer Response (ATR)</h3>
-        <textarea id="officerResponse" rows="7" maxlength="5000" placeholder="Paste the officer's response here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y"></textarea>
+        <textarea id="officerResponse" rows="7" placeholder="Paste the officer's response here..." class="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm leading-relaxed outline-none focus:border-govblue resize-y"></textarea>
         <div class="mt-2 flex flex-wrap gap-1.5">
           <span class="text-[10px] text-slate-400">Try:</span>
-          <button onclick="fillGood()" class="text-[10px] border border-emerald-200 bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-emerald-100">Good response</button>
-          <button onclick="fillBad()" class="text-[10px] border border-red-200 bg-red-50 text-red-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-red-100">Boilerplate response</button>
+          <button onclick="fillGood()" class="text-[10px] border border-emerald-200 bg-emerald-50 text-emerald-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-emerald-100 transition-colors">Good response</button>
+          <button onclick="fillBad()" class="text-[10px] border border-red-200 bg-red-50 text-red-700 rounded-full px-2.5 py-0.5 font-medium hover:bg-red-100 transition-colors">Boilerplate response</button>
         </div>
       </div>
     </div>
 
+    <!-- Evaluate Button -->
     <button id="evalBtn" onclick="runEvaluation()" class="w-full bg-govblue text-white py-3 rounded-lg text-sm font-semibold hover:bg-blue-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed">
       <span id="evalBtnText">Evaluate Response Quality</span>
     </button>
 
-    <div id="errorBox" class="hidden mt-4 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-      <div id="errorMsg"></div>
-      <button onclick="runEvaluation()" class="mt-2 text-xs border border-red-300 rounded px-3 py-1 hover:bg-red-100">Try again</button>
-    </div>
+    <!-- Error -->
+    <div id="errorBox" class="hidden mt-4 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700"></div>
 
+    <!-- Results -->
     <div id="results" class="hidden mt-6">
       <div class="grid lg:grid-cols-3 gap-4 mb-4">
+        <!-- Score Ring -->
         <div class="bg-white rounded-lg border border-slate-200 p-5">
           <h3 class="text-sm font-semibold mb-4">Quality Score</h3>
           <div class="flex items-center gap-4">
             <div class="relative w-24 h-24 shrink-0">
               <svg viewBox="0 0 80 80" class="w-full h-full -rotate-90">
                 <circle cx="40" cy="40" r="34" stroke="#e2e8f0" stroke-width="8" fill="none"/>
-                <circle id="scoreRing" cx="40" cy="40" r="34" stroke="#2563eb" stroke-width="8" fill="none" stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" style="transition:stroke-dashoffset .7s ease"/>
+                <circle id="scoreRing" cx="40" cy="40" r="34" stroke="#2563eb" stroke-width="8" fill="none"
+                  stroke-dasharray="213.6" stroke-dashoffset="213.6" stroke-linecap="round" style="transition:stroke-dashoffset .7s ease"/>
               </svg>
               <div class="absolute inset-0 flex items-center justify-center">
                 <div class="text-center">
@@ -80,39 +92,38 @@
               </div>
             </div>
             <div>
-              <div class="text-xs text-slate-400 uppercase tracking-wider">Verdict</div>
+              <div class="text-xs text-slate-400 uppercase tracking-wider">Decision</div>
               <div id="decision" class="mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full"></div>
-              <div class="mt-2 text-[10px] text-slate-400">
-                Score = average of 5 criteria.<br/>
-                >=70 Resolved | 40-69 Likely Hollow | &lt;40 Definitely Hollow
+              <div class="mt-2 text-[10px] text-slate-400 leading-snug">
+                Score = average of 5 criteria<br/>&ge;70 Resolved | 40-69 Likely Hollow | &lt;40 Definitely Hollow
               </div>
-              <div class="mt-1" id="modelBadge"></div>
+              <div class="mt-1 text-[10px] text-slate-400">Gemini 3.5 Flash Lite</div>
             </div>
           </div>
         </div>
 
+        <!-- Criteria -->
         <div class="bg-white rounded-lg border border-slate-200 p-5 lg:col-span-2">
-          <h3 class="text-sm font-semibold mb-3">Evaluation Criteria (0-100 each)</h3>
+          <h3 class="text-sm font-semibold mb-3">Evaluation Criteria</h3>
           <div id="criteriaGrid" class="grid sm:grid-cols-2 gap-2"></div>
         </div>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-4 mb-4">
+        <!-- Explanation -->
         <div class="bg-white rounded-lg border border-slate-200 p-5">
           <h3 class="text-sm font-semibold mb-3">AI Explanation</h3>
           <p id="explanation" class="text-sm leading-relaxed text-slate-700"></p>
-          <div id="sopNote" class="hidden mt-2 text-xs text-amber-600 bg-amber-50 border border-amber-200 rounded px-2 py-1"></div>
         </div>
 
+        <!-- Failure Modes -->
         <div class="bg-white rounded-lg border border-slate-200 p-5">
           <h3 class="text-sm font-semibold mb-3">Failure Modes Detected</h3>
           <div id="failureModes"></div>
-          <div class="mt-3 text-[10px] text-slate-400">
-            Checked against 5 DARPG-documented patterns: Status Restatement, Boilerplate, Deflection, Institutional Bias, Burden Transfer
-          </div>
         </div>
       </div>
 
+      <!-- Cost -->
       <div class="bg-white rounded-lg border border-slate-200 p-5">
         <h3 class="text-sm font-semibold mb-3">Evaluation Cost (Live)</h3>
         <div class="grid grid-cols-3 gap-3 text-center">
@@ -129,36 +140,52 @@
             <div class="text-[10px] text-slate-400 uppercase tracking-wider">Cost (INR)</div>
           </div>
         </div>
-        <p class="text-[10px] text-slate-400 text-center mt-2">Model: Gemini 2.0 Flash Lite | Free tier: 15 RPM | Paid: $0.075/M input, $0.30/M output</p>
       </div>
     </div>
 
-    <div class="text-center text-xs text-slate-400 mt-8">Nivaran &middot; Team True North &middot; GenAI Startup Sprint</div>
+    <div class="text-center text-xs text-slate-400 mt-8">Nivaran &middot; GenAI Startup Sprint</div>
   </div>
 
 <script>
-var goodDraft = "Dear Mr. Ramesh Kumar,\n\nThank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).\n\nWe have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.\n\nNext steps:\n1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.\n2. Once updated, submit a re-verification request at pmkisan.gov.in.\n3. Your installment will be re-processed in the next weekly NPCI batch (per SOP Section 4.2, typically within 7 working days).\n\nIf your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer (per SOP Section 3.1, within 7 working days).\n\nRegards,\nGrievance Cell, Department of Agriculture";
+const goodDraft = `Dear Mr. Ramesh Kumar,
 
-var badDraft = "Dear Applicant,\n\nYour complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.\n\nRegards,\nGrievance Cell";
+Thank you for reaching out regarding your PM-KISAN installment (Application ID: PMK-2025-448291).
+
+We have reviewed your case and identified that the 4th installment payment failed on 2025-06-14 due to an Aadhaar-bank account mismatch flagged by NPCI (Rejection Code: R03 - Account Description Mismatch), per PM-KISAN SOP Section 4.2.
+
+Next steps:
+1. Please visit your bank branch and update the account name to match your Aadhaar record exactly.
+2. Once updated, submit a re-verification request at pmkisan.gov.in.
+3. Your installment will be re-processed in the next weekly NPCI batch (typically within 7 working days).
+
+If your details are already correct, reply to this ticket with a bank passbook copy and we will escalate to the district nodal officer within 48 hours.
+
+Regards,
+Grievance Cell, Department of Agriculture`;
+
+const badDraft = `Dear Applicant,
+
+Your complaint has been received and forwarded to the concerned department for necessary action. You are requested to wait for the resolution. For further queries, please contact the helpline.
+
+Regards,
+Grievance Cell`;
 
 function fillGood() { document.getElementById('officerResponse').value = goodDraft; }
 function fillBad() { document.getElementById('officerResponse').value = badDraft; }
 
 async function runEvaluation() {
-  var comp = document.getElementById('complaintText').value.trim();
-  var resp = document.getElementById('officerResponse').value.trim();
+  const comp = document.getElementById('complaintText').value.trim();
+  const resp = document.getElementById('officerResponse').value.trim();
+  if (!comp || !resp) { alert('Please fill in both complaint and officer response.'); return; }
 
-  if (!comp || comp.length < 10) { alert('Please enter a complaint (at least 10 characters).'); return; }
-  if (!resp || resp.length < 10) { alert('Please enter an officer response (at least 10 characters).'); return; }
-
-  var btn = document.getElementById('evalBtn');
+  const btn = document.getElementById('evalBtn');
   btn.disabled = true;
   document.getElementById('evalBtnText').innerHTML = '<svg class="w-4 h-4 animate-spin inline mr-1.5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"/><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>Evaluating with AI...';
   document.getElementById('results').classList.add('hidden');
   document.getElementById('errorBox').classList.add('hidden');
 
   try {
-    var res = await fetch('/api/evaluate', {
+    const res = await fetch('/api/evaluate', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -167,21 +194,19 @@ async function runEvaluation() {
         scheme: document.getElementById('scheme').value,
       }),
     });
-    var data = await res.json();
-
+    const data = await res.json();
     if (!res.ok) {
-      var errHtml = '<div class="font-medium">' + (data.error || 'Evaluation failed.') + '</div>';
-      if (data.hint) {
-        errHtml += '<div class="mt-1 text-xs text-red-600">' + data.hint + '</div>';
-      }
-      document.getElementById('errorMsg').innerHTML = errHtml;
+      let html = '<div class="font-medium">' + (data.error || 'Evaluation failed.') + '</div>';
+      if (data.hint) html += '<div class="mt-1 text-xs">' + data.hint + '</div>';
+      html += '<button onclick="runEvaluation()" class="mt-2 text-xs border border-red-300 rounded px-2 py-1 hover:bg-red-100">Try again</button>';
+      document.getElementById('errorBox').innerHTML = html;
       document.getElementById('errorBox').classList.remove('hidden');
       return;
     }
 
     renderResults(data);
   } catch (err) {
-    document.getElementById('errorMsg').innerHTML = '<div class="font-medium">Network error: ' + err.message + '</div>';
+    document.getElementById('errorBox').textContent = 'Network error: ' + err.message;
     document.getElementById('errorBox').classList.remove('hidden');
   } finally {
     btn.disabled = false;
@@ -192,14 +217,16 @@ async function runEvaluation() {
 function renderResults(data) {
   document.getElementById('results').classList.remove('hidden');
 
-  var score = data.overallScore;
-  var color = score >= 70 ? '#10b981' : score >= 40 ? '#f59e0b' : '#ef4444';
-  var circ = 2 * Math.PI * 34;
+  // Score ring
+  const score = data.overallScore;
+  const color = score >= 75 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444';
+  const circ = 2 * Math.PI * 34;
   document.getElementById('scoreRing').setAttribute('stroke', color);
   document.getElementById('scoreRing').setAttribute('stroke-dashoffset', circ * (1 - score / 100));
   document.getElementById('scoreNum').textContent = score;
 
-  var dec = document.getElementById('decision');
+  // Decision badge
+  const dec = document.getElementById('decision');
   dec.textContent = data.decision;
   if (data.decision === 'Resolved') {
     dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200';
@@ -209,45 +236,40 @@ function renderResults(data) {
     dec.className = 'mt-1 inline-block text-xs font-semibold px-2.5 py-1 rounded-full bg-red-50 text-red-700 border border-red-200';
   }
 
-  document.getElementById('modelBadge').innerHTML =
-    '<span class="text-[10px] bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">' +
-    (data.model || 'gemini') + ' | ' + (data.sopCount || 0) + ' SOP(s) checked</span>';
 
-  document.getElementById('criteriaGrid').innerHTML = data.criteria.map(function(c) {
-    return '<div class="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">' +
-      '<span class="text-base ' + (c.ok ? 'text-emerald-500' : 'text-red-500') + '">' + (c.ok ? '&#10004;' : '&#10006;') + '</span>' +
-      '<div class="flex-1 min-w-0">' +
-      '<div class="text-sm font-medium truncate">' + c.name + '</div>' +
-      '<div class="mt-1 h-1.5 bg-slate-200 rounded-full overflow-hidden">' +
-      '<div class="h-full rounded-full ' + (c.ok ? 'bg-emerald-500' : 'bg-red-500') + '" style="width:' + c.score + '%"></div>' +
-      '</div></div>' +
-      '<span class="text-xs font-semibold w-8 text-right tabular-nums">' + c.score + '</span></div>';
-  }).join('');
+  // Criteria
+  document.getElementById('criteriaGrid').innerHTML = data.criteria.map(c => `
+    <div class="flex items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+      <span class="${c.ok ? 'text-emerald-500' : 'text-red-500'} text-base">${c.ok ? '&#10004;' : '&#10006;'}</span>
+      <div class="flex-1 min-w-0">
+        <div class="text-sm font-medium truncate">${c.name}</div>
+        <div class="mt-1 h-1 bg-slate-200 rounded-full overflow-hidden">
+          <div class="h-full rounded-full ${c.ok ? 'bg-emerald-500' : 'bg-red-500'}" style="width:${c.score}%"></div>
+        </div>
+      </div>
+      <span class="text-xs font-semibold w-7 text-right">${c.score}</span>
+    </div>
+  `).join('');
 
+  // Explanation
   document.getElementById('explanation').textContent = data.explanation;
 
-  var sopNote = document.getElementById('sopNote');
-  if (data.sopCount === 0) {
-    sopNote.textContent = 'No scheme-specific SOPs were available. Scores are based on general quality criteria only.';
-    sopNote.classList.remove('hidden');
-  } else {
-    sopNote.classList.add('hidden');
-  }
-
-  var fmDiv = document.getElementById('failureModes');
-  if (!data.failureModes || data.failureModes.length === 0) {
+  // Failure modes
+  const fmDiv = document.getElementById('failureModes');
+  if (data.failureModes.length === 0) {
     fmDiv.innerHTML = '<div class="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-lg px-3 py-2 text-sm text-emerald-700"><span>&#10004;</span> No hollow-closure failure modes detected.</div>';
   } else {
-    fmDiv.innerHTML = data.failureModes.map(function(fm) {
-      return '<div class="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm text-amber-800 mb-1.5"><span class="mt-0.5">&#9888;</span> ' + fm + '</div>';
-    }).join('');
+    fmDiv.innerHTML = data.failureModes.map(fm =>
+      `<div class="flex items-start gap-2 bg-amber-50 border border-amber-200 rounded-lg px-3 py-2 text-sm text-amber-800 mb-1.5"><span class="mt-0.5">&#9888;</span> ${fm}</div>`
+    ).join('');
   }
 
+  // Cost
   if (data.usage) {
     document.getElementById('eInputTok').textContent = data.usage.prompt_tokens;
     document.getElementById('eOutputTok').textContent = data.usage.completion_tokens;
-    var cost = ((data.usage.prompt_tokens * 0.075 / 1e6) + (data.usage.completion_tokens * 0.30 / 1e6)) * 84;
-    document.getElementById('eCost').textContent = cost > 0.001 ? 'Rs ' + cost.toFixed(3) : 'Rs < 0.001 (free tier)';
+    const cost = ((data.usage.prompt_tokens * 0.10 / 1e6) + (data.usage.completion_tokens * 0.40 / 1e6)) * 84;
+    document.getElementById('eCost').textContent = 'Rs ' + cost.toFixed(3);
   }
 }
 </script>
