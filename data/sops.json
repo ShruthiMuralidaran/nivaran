@@ -1,0 +1,191 @@
+{
+  "notice": "Illustrative SOP corpus written for the Nivaran prototype. Modelled on how public grievance and scheme rules are typically structured; NOT official government text. Replace with official SOPs before any real use.",
+  "schemes": {
+    "GENERAL": "General grievance handling",
+    "PM-KISAN": "PM-KISAN",
+    "NSAP": "NSAP pensions",
+    "EPFO": "EPFO",
+    "PASSPORT": "Passport",
+    "NSP": "National Scholarship",
+    "LPG": "LPG / PMUY",
+    "PDS": "PDS ration card"
+  },
+  "sections": [
+    {
+      "id": "GEN-1",
+      "scheme": "GENERAL",
+      "section": "1",
+      "title": "Action Taken Report: minimum contents",
+      "text": "An Action Taken Report (ATR) that closes a grievance must state: (a) what was found on examining the citizen's record; (b) the specific action taken or ordered, and the officer role responsible for it; (c) the date by which the citizen will see the outcome; (d) what happens next if the outcome does not happen by that date; and (e) the appeal route. A reply that only acknowledges receipt, restates the portal status, or forwards the case does not count as disposal.",
+      "keywords": ["atr", "action taken report", "disposal", "closure", "reply", "contents"]
+    },
+    {
+      "id": "GEN-2",
+      "scheme": "GENERAL",
+      "section": "2",
+      "title": "Transfers between offices",
+      "text": "A grievance may be transferred only when the receiving office has jurisdiction over the issue. The transferring officer must record the reason, name the receiving office, and tell the citizen the timeline within which the receiving office will act. A transfer is not a disposal: the grievance stays open until the receiving office files an ATR.",
+      "keywords": ["transfer", "forwarded", "concerned department", "jurisdiction", "other office"]
+    },
+    {
+      "id": "GEN-3",
+      "scheme": "GENERAL",
+      "section": "3",
+      "title": "Appeals and repeat grievances",
+      "text": "A citizen dissatisfied with a closure may file an appeal within 30 days of closure; the appellate authority must decide the appeal within 30 days. A repeat grievance from the same citizen on the same issue within 90 days of closure triggers a review of the original closure by the supervising officer.",
+      "keywords": ["appeal", "repeat", "reopen", "dissatisfied", "review"]
+    },
+    {
+      "id": "GEN-4",
+      "scheme": "GENERAL",
+      "section": "4",
+      "title": "Verifying disputed records",
+      "text": "When a complaint disputes a record held by the party complained against (for example a delivery, payment or inspection record), the officer must verify the facts independently, using the citizen's statement and a third-party record such as a bank statement, OTP log or signed acknowledgement. The complained-against party's own record is not sufficient grounds to close the grievance.",
+      "keywords": ["disputed", "record", "evidence", "verify", "delivered", "distributor", "agency"]
+    },
+    {
+      "id": "PMK-3.1",
+      "scheme": "PM-KISAN",
+      "section": "3.1",
+      "title": "Eligibility and installment schedule",
+      "text": "Eligible farmer families receive Rs 6,000 a year in three installments of Rs 2,000 each, credited by Direct Benefit Transfer to the Aadhaar-seeded bank account. If an installment shows 'under process' for more than 30 days, the State Nodal Officer must investigate and give the beneficiary a written status update within 7 working days.",
+      "keywords": ["installment", "instalment", "under process", "6000", "2000", "dbt", "farmer", "kisan"]
+    },
+    {
+      "id": "PMK-4.2",
+      "scheme": "PM-KISAN",
+      "section": "4.2",
+      "title": "NPCI verification failure handling",
+      "text": "If an installment fails NPCI verification (rejection codes R01 to R09, for example R03 account name mismatch), the District Agriculture Officer must notify the beneficiary within 3 working days with the exact rejection code and the correction needed. Once the beneficiary corrects the bank or Aadhaar details, the re-verification request is processed in the next weekly NPCI batch and the held installment is re-sent.",
+      "keywords": ["npci", "rejection", "r03", "bank", "aadhaar", "mismatch", "failed", "payment failed"]
+    },
+    {
+      "id": "PMK-5.1",
+      "scheme": "PM-KISAN",
+      "section": "5.1",
+      "title": "eKYC, land records and delayed installments",
+      "text": "Installments are held while eKYC is incomplete or land records are unverified. The beneficiary must be told which of the two is pending and where to complete it (OTP eKYC on the portal, biometric eKYC at a Common Service Centre, or land verification at the tehsil). Held installments are released in the next batch after completion. Scheme guidelines provide no compensation or interest for delayed installments.",
+      "keywords": ["ekyc", "kyc", "land record", "held", "compensation", "interest", "delay", "csc"]
+    },
+    {
+      "id": "NSAP-3.1",
+      "scheme": "NSAP",
+      "section": "3.1",
+      "title": "Pension disbursement delays",
+      "text": "Old-age, widow and disability pensions must be credited on or before the 7th of each month. If a pension is delayed by more than 45 days, the case is escalated to the State Nodal Officer with bank statement verification and Aadhaar re-authentication. The District Social Welfare Officer must give the beneficiary a written explanation within 15 days and initiate re-disbursement.",
+      "keywords": ["pension", "widow", "old age", "not credited", "delay", "passbook", "dswo"]
+    },
+    {
+      "id": "NSAP-4.1",
+      "scheme": "NSAP",
+      "section": "4.1",
+      "title": "Arrears after a missed pension",
+      "text": "Once the cause of a missed pension is fixed, all pending months are paid as arrears in a single credit with the next monthly disbursement. The beneficiary must be told the arrear amount and the credit date in writing.",
+      "keywords": ["arrears", "pending months", "missed", "back payment"]
+    },
+    {
+      "id": "NSAP-5.2",
+      "scheme": "NSAP",
+      "section": "5.2",
+      "title": "Escalation to the State Level Monitoring Committee",
+      "text": "NSAP grievances unresolved for more than 60 days at district level must be escalated to the State Level Monitoring Committee, which acknowledges within 5 working days and gives a resolution timeline. A repeat grievance from the same beneficiary within 90 days triggers an automatic review.",
+      "keywords": ["escalation", "state level", "monitoring committee", "60 days", "repeat"]
+    },
+    {
+      "id": "EPF-6.1",
+      "scheme": "EPFO",
+      "section": "6.1",
+      "title": "PF transfer claims",
+      "text": "If the previous employer does not approve a transfer claim on the UAN portal within 15 days, the member may have it attested by the present employer, or the field office processes it after verifying service details. Transfer claims must be settled within 20 days of a complete claim. A rejection must give specific reasons with document references, and the member must be told by email and SMS within 3 working days of the rejection.",
+      "keywords": ["transfer", "pf", "uan", "employer", "approve", "attest", "claim"]
+    },
+    {
+      "id": "EPF-7.2",
+      "scheme": "EPFO",
+      "section": "7.2",
+      "title": "EPS widow and family pension",
+      "text": "A widow or family pension claim under EPS must be settled within 20 days of complete documents (death certificate, Form 10D, bank details). If documents are incomplete, the office must send one consolidated deficiency letter within 10 days listing every missing item; repeated piecemeal requests are not allowed. Pension is payable from the day after the member's death, with arrears.",
+      "keywords": ["eps", "widow", "family pension", "death", "form 10d", "husband", "under process"]
+    },
+    {
+      "id": "EPF-8.1",
+      "scheme": "EPFO",
+      "section": "8.1",
+      "title": "Grievance handling and office visits",
+      "text": "EPFiGMS grievances must be disposed of within 15 days. A member must not be asked to visit the office unless an original document has to be verified, and the reply must name that document. Replies must state the claim status, the reason for any delay and the settlement date.",
+      "keywords": ["epfigms", "visit", "office", "grievance", "status", "settlement"]
+    },
+    {
+      "id": "PSP-4.1",
+      "scheme": "PASSPORT",
+      "section": "4.1",
+      "title": "Application processing timeline",
+      "text": "Normal passport applications must be processed within 30 days of submission. If police verification is pending beyond 21 days, the Regional Passport Officer (RPO) must escalate to the SSP/SP of the district. Applicants must not be asked to visit the RPO in person unless biometric re-capture is technically required.",
+      "keywords": ["passport", "pending", "police verification", "rpo", "processing", "application"]
+    },
+    {
+      "id": "PSP-4.3",
+      "scheme": "PASSPORT",
+      "section": "4.3",
+      "title": "Printing, dispatch and tracking",
+      "text": "Printed passports are dispatched by Speed Post within 3 working days of printing and the tracking number is sent by SMS. If the passport is not delivered within 10 days of dispatch, the RPO raises a postal enquiry and informs the applicant of the outcome within 7 working days.",
+      "keywords": ["dispatch", "printed", "speed post", "tracking", "delivery", "not received"]
+    },
+    {
+      "id": "PSP-6.1",
+      "scheme": "PASSPORT",
+      "section": "6.1",
+      "title": "Urgent cases",
+      "text": "An applicant with documented urgency (a job offer, admission or medical emergency with a deadline) may request expedited processing. The RPO must decide on the request within 3 working days of receiving the proof and tell the applicant the expected issue date.",
+      "keywords": ["urgent", "job offer", "deadline", "expedite", "medical", "abroad"]
+    },
+    {
+      "id": "NSP-3.2",
+      "scheme": "NSP",
+      "section": "3.2",
+      "title": "Application verification levels",
+      "text": "Scholarship applications are verified first by the institute nodal officer and then by the district or state nodal officer. If an application is pending at institute level for more than 15 days, the district nodal officer must send a reminder and, after 7 more days, verify the application directly.",
+      "keywords": ["scholarship", "verification", "institute", "nodal officer", "pending", "application"]
+    },
+    {
+      "id": "NSP-5.1",
+      "scheme": "NSP",
+      "section": "5.1",
+      "title": "Disbursement failures",
+      "text": "If a scholarship payment fails because the bank account is inactive or not Aadhaar-seeded, the student must be informed within 7 days with the reason. After the student corrects the account, payment is retried in the next payment cycle, and the student is told the retry date.",
+      "keywords": ["scholarship", "payment failed", "not received", "bank", "aadhaar seeded", "disbursement"]
+    },
+    {
+      "id": "LPG-2.4",
+      "scheme": "LPG",
+      "section": "2.4",
+      "title": "Disputed cylinder deliveries",
+      "text": "When a consumer disputes a refill delivery recorded by the distributor, the oil company's sales officer must verify independently within 7 days, using the delivery authentication code (DAC/OTP) log, the consumer's statement and the delivery person's record. The distributor's record alone is not proof of delivery. If delivery is not proven, a replacement refill is delivered within 48 hours at no extra cost.",
+      "keywords": ["lpg", "cylinder", "delivered", "distributor", "refill", "otp", "dac", "gas"]
+    },
+    {
+      "id": "LPG-3.1",
+      "scheme": "LPG",
+      "section": "3.1",
+      "title": "Refill booking delays",
+      "text": "Refill bookings must be delivered within 3 working days. A delay beyond that is escalated to the oil company's territory office, which must contact the consumer within 2 working days with a delivery date.",
+      "keywords": ["booking", "refill", "delay", "lpg", "ujjwala", "pmuy"]
+    },
+    {
+      "id": "PDS-2.1",
+      "scheme": "PDS",
+      "section": "2.1",
+      "title": "Cancellation of ration cards",
+      "text": "A ration card cannot be cancelled without written notice and an opportunity to be heard. If a card was cancelled without notice, the District Supply Officer must verify the household and restore the card within 15 days; the household can draw its entitlement for the current month as soon as the card is restored.",
+      "keywords": ["ration card", "cancelled", "cancellation", "notice", "pds", "restore"]
+    },
+    {
+      "id": "PDS-3.3",
+      "scheme": "PDS",
+      "section": "3.3",
+      "title": "Denial of entitlement at a fair price shop",
+      "text": "If a fair price shop denies a household its entitlement, the area food inspector must inquire within 7 days and record statements from the household and the shop. If the denial is confirmed, the shop must supply the entitlement within 3 days and action is initiated against the dealer.",
+      "keywords": ["fair price shop", "fps", "rice", "wheat", "denied", "refuses", "ration"]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resolution Judge · Nivaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<section class="band"><div class="inner">
+  <div class="eyebrow">Resolution Judge</div>
+  <h1>Was this grievance actually resolved?</h1>
+  <p class="lead">Paste a citizen's complaint and the officer's closing reply. The Judge checks it against the five failure modes DARPG documents and the matching SOP, and gives a score with quoted evidence.</p>
+</div></section>
+
+<main class="page">
+  <div class="split">
+    <div class="card stack">
+      <div class="chips"><span class="lbl">Try a case:</span>
+        <button class="chip good" data-case="good">Specific reply</button>
+        <button class="chip bad" data-case="boiler">Boilerplate</button>
+        <button class="chip warn" data-case="padded">Padded with fake specifics</button>
+        <button class="chip good" data-case="proof">Proof of payment</button>
+        <button class="chip bad" data-case="bias">Distributor's word</button>
+        <button class="chip bad" data-case="visit">"Visit the office"</button>
+      </div>
+      <label class="field"><span>Scheme <em>(or let Nivaran detect it)</em></span>
+        <select id="scheme">
+          <option value="auto">Auto-detect</option>
+          <option value="PM-KISAN">PM-KISAN</option>
+          <option value="NSAP">NSAP pensions</option>
+          <option value="EPFO">EPFO</option>
+          <option value="PASSPORT">Passport</option>
+          <option value="NSP">National Scholarship</option>
+          <option value="LPG">LPG / PMUY</option>
+          <option value="PDS">PDS ration card</option>
+        </select>
+      </label>
+      <label class="field"><span>Citizen complaint <span class="counter" id="c1"></span></span>
+        <textarea id="complaint" maxlength="5000" placeholder="Paste the citizen's complaint…"></textarea>
+      </label>
+      <label class="field"><span>Officer's closing reply (ATR) <span class="counter" id="c2"></span></span>
+        <textarea id="response" maxlength="5000" style="min-height:170px" placeholder="Paste the officer's reply…"></textarea>
+      </label>
+      <div id="formErr" class="err-box hidden"></div>
+      <button class="btn btn-primary btn-block" id="go">Evaluate reply</button>
+      <p class="hint">Don't paste real citizens' personal data in a demo.</p>
+    </div>
+
+    <div id="out">
+      <div class="card empty" id="emptyState">
+        <h3>No evaluation yet</h3>
+        <p>Pick a case on the left, or paste your own, then press <b>Evaluate reply</b>.</p>
+      </div>
+      <div id="results" class="hidden"></div>
+    </div>
+  </div>
+
+  <div class="card mode-guide">
+    <details class="more"><summary><b>What each failure mode means</b> · from DARPG's own analysis of closures marked disposed but not resolved</summary>
+      <div class="grid grid-2 mt-16" id="modeGuide"></div>
+      <div class="grid grid-3 mt-16">
+        <div class="ok-box"><b>Resolved</b> · 70 and above</div>
+        <div class="warn-box"><b>Needs review</b> · 40 to 69</div>
+        <div class="err-box"><b>Hollow closure</b> · below 40</div>
+      </div>
+      <p class="small muted mt-12">Score = average of five criteria (addresses the complaint, specific action, grounded in policy, written for this case, clear next steps). Failure modes lower the ceiling: a reply that answers a different issue cannot score above 20; any serious failure mode caps it at 59; two or more cap it at 39. A failure mode only counts if the exact words that show it are quoted from the reply.</p>
+    </details>
+  </div>
+</main>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/judge.js"></script>
+</body>
+</html>

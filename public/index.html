@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nivaran · Grievance Resolution Quality</title>
+<meta name="description" content="Nivaran checks whether government grievance closures actually resolve the citizen's problem, and helps officers write replies that do.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<section class="band"><div class="inner">
+  <div class="eyebrow">AI quality layer for grievance redressal</div>
+  <h1>Disposed is not the same as resolved.</h1>
+  <p class="lead">India closes grievances faster than ever, but nothing measures whether the citizen's problem was solved. Nivaran checks each closure for the failure modes DARPG documents, and helps officers write replies that hold up.</p>
+</div></section>
+
+<main class="page">
+  <div class="grid grid-4">
+    <div class="card kpi blue"><div class="label">Disposals, 2024</div><div class="value">26.45L</div><div class="note">CPGRAMS, an all-time high</div></div>
+    <div class="card kpi green"><div class="label">Avg resolution time</div><div class="value">13<small> days</small></div><div class="note">down from 32 days in 2021</div></div>
+    <div class="card kpi red"><div class="label">Citizen satisfaction</div><div class="value">~50%</div><div class="note">measured independently</div></div>
+    <div class="card kpi amber"><div class="label">Repeat filings</div><div class="value">8.59L</div><div class="note">across 20 categories</div></div>
+  </div>
+  <p class="hint mt-8">Sources: DARPG 48th CPGRAMS Monthly Report (Apr 2026); IMPRI Policy Brief 2025–26.</p>
+
+  <div class="grid grid-2 mt-24">
+    <a class="card feature" href="/judge" style="color:inherit;text-decoration:none">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+      <h2>Resolution Judge</h2>
+      <p>Scores one closure against five criteria and the documented failure modes, quoting the exact words that triggered each flag.</p>
+      <span class="go">Check a reply →</span>
+    </a>
+    <a class="card feature" href="/copilot" style="color:inherit;text-decoration:none">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/></svg></div>
+      <h2>Resolution Copilot</h2>
+      <p>Drafts a reply from the officer's findings and the matching SOP, checks every figure, has the Judge score it, and revises once if needed.</p>
+      <span class="go">Draft a reply →</span>
+    </a>
+  </div>
+
+  <div class="card mt-24">
+    <div class="card-head"><div><h2>How a closure gets checked</h2><div class="sub">What happens when you press Evaluate</div></div><a href="/how" class="btn btn-ghost">Architecture, model and cost →</a></div>
+    <div class="flow">
+      <div class="node"><div class="k">Input</div><div class="d">Complaint + officer's reply</div></div>
+      <div class="node code"><div class="k">Find rules</div><div class="d">Finds the SOP rules that apply</div></div>
+      <div class="node ai"><div class="k">Judge</div><div class="d">Scores 5 criteria and flags failure modes, quoting the reply</div></div>
+      <div class="node code"><div class="k">Check</div><div class="d">Every quote is confirmed; verdict set by fixed rules</div></div>
+      <div class="node"><div class="k">Output</div><div class="d">Score, verdict, evidence, facts to verify</div></div>
+    </div>
+  </div>
+
+  <div class="testimonial mt-24">
+    <div class="q">&ldquo;</div>
+    <blockquote>Disposal-rate KPIs reward speed, not accuracy. Officers are scored on closing volume. Nothing in the current system scores whether the closure was true.</blockquote>
+    <div class="who">APFC, EPFO (Grievance Redressal Officer) · primary interview</div>
+  </div>
+</main>
+
+<script src="/assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Resolution Copilot · Nivaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<section class="band"><div class="inner">
+  <div class="eyebrow">Resolution Copilot</div>
+  <h1>Draft a reply that actually resolves the case</h1>
+  <p class="lead">Enter the complaint and what you found on the record. The Copilot pulls the matching SOP, drafts a cited reply, checks every deadline and amount, has the Judge score it, and revises it once if it falls short.</p>
+</div></section>
+
+<main class="page">
+  <div class="split">
+    <div class="card stack">
+      <div class="chips"><span class="lbl">Try a case:</span>
+        <button class="chip" data-case="widow">Widow pension</button>
+        <button class="chip" data-case="pf">PF transfer</button>
+        <button class="chip" data-case="passport">Passport delay</button>
+        <button class="chip" data-case="comp">Compensation demand</button>
+        <button class="chip" data-case="interim">No findings yet</button>
+        <button class="chip" data-case="none">Not covered by any SOP</button>
+      </div>
+      <div class="grid grid-2" style="gap:12px">
+        <label class="field"><span>Citizen name</span><input type="text" id="citizen" maxlength="80" placeholder="e.g. Sunita Devi"></label>
+        <label class="field"><span>Complaint ID <em>(optional)</em></span><input type="text" id="cid" maxlength="40" placeholder="e.g. CMP-2040"></label>
+        <label class="field"><span>Scheme</span>
+          <select id="scheme">
+            <option value="auto">Auto-detect</option>
+            <option value="PM-KISAN">PM-KISAN</option>
+            <option value="NSAP">NSAP pensions</option>
+            <option value="EPFO">EPFO</option>
+            <option value="PASSPORT">Passport</option>
+            <option value="NSP">National Scholarship</option>
+            <option value="LPG">LPG / PMUY</option>
+            <option value="PDS">PDS ration card</option>
+          </select></label>
+        <label class="field"><span>Department <em>(optional)</em></span><input type="text" id="dept" maxlength="80" placeholder="e.g. Rural Development"></label>
+        <label class="field"><span>Reply language</span>
+          <select id="lang"><option value="en">English</option><option value="hi">हिन्दी (Hindi)</option></select></label>
+      </div>
+      <div id="handoff" class="warn-box hidden"></div>
+      <label class="field"><span>Citizen complaint <span class="counter" id="c1"></span></span>
+        <textarea id="complaint" maxlength="5000" placeholder="Paste the citizen's complaint…"></textarea></label>
+      <label class="field"><span>What you found on the record <em>(recommended)</em> <span class="counter" id="c2"></span></span>
+        <textarea id="findings" maxlength="3000" style="min-height:90px" placeholder="e.g. Aadhaar authentication failed in August; re-authenticated on 3 Oct; arrears for Aug–Sep approved."></textarea>
+        <div class="hint">The Copilot only states facts you give here or that are in the SOP. Leave it empty to get an interim reply that commits to specific checks.</div></label>
+      <div id="formErr" class="err-box hidden"></div>
+      <button class="btn btn-primary btn-block" id="go">Generate draft</button>
+    </div>
+
+    <div id="out">
+      <div class="card empty" id="emptyState">
+        <h3>No draft yet</h3>
+        <p>Pick a case or fill in the form, then press <b>Generate draft</b>. You'll see the draft, its quality score, and every check it went through.</p>
+      </div>
+      <div id="results" class="hidden"></div>
+    </div>
+  </div>
+</main>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/copilot.js"></script>
+</body>
+</html>

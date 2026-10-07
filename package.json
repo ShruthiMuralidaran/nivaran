@@ -1,0 +1,18 @@
+{
+  "name": "nivaran",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Nivaran: AI quality layer for government grievance closures (Resolution Judge and Resolution Copilot).",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node scripts/selftest.js",
+    "eval": "node scripts/eval.js",
+    "build:html": "node scripts/build-standalone.js",
+    "label-kit": "node scripts/label-kit.js",
+    "supabase:sql": "node scripts/make-supabase-sql.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}

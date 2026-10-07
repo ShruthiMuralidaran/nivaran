@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How it works · Nivaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/assets/styles.css">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<section class="band"><div class="inner">
+  <div class="eyebrow">Architecture, model and cost</div>
+  <h1>How Nivaran works</h1>
+  <p class="lead">What happens on each request, which model runs it and why, what it costs per session and at 10,000 officers, and what we have not built yet.</p>
+</div></section>
+
+<main class="page">
+  <div class="card">
+    <h2>Resolution Copilot · drafting a reply</h2>
+    <div class="sub">Up to 4 AI calls per draft. Blue = AI; dashed = our code.</div>
+    <div class="flow mt-16">
+      <div class="node code"><div class="k">1 · Retrieve</div><div class="d">BM25 search over the SOP knowledge base; scheme given or auto-detected. No SOP → no draft.</div></div>
+      <div class="node ai"><div class="k">2 · Draft</div><div class="d">Model writes the reply from the officer's findings and cited SOP sections only.</div></div>
+      <div class="node code"><div class="k">3 · Verify</div><div class="d">Every citation must exist; every deadline or amount must be cited or come from the findings.</div></div>
+      <div class="node ai"><div class="k">4 · Self-check</div><div class="d">The Judge scores the draft against the five failure modes.</div></div>
+      <div class="node ai"><div class="k">5 · Revise</div><div class="d">If checks fail, the problems go back to the model once; the better-scoring draft is kept.</div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Resolution Judge · checking a reply</h2>
+    <div class="sub">1 AI call per check</div>
+    <div class="flow amber mt-16">
+      <div class="node"><div class="k">Input</div><div class="d">Complaint + officer's reply (+ scheme)</div></div>
+      <div class="node code"><div class="k">Retrieve</div><div class="d">Matching scheme SOPs + grievance-handling standard</div></div>
+      <div class="node ai"><div class="k">Score</div><div class="d">Model returns 5 criterion scores, failure modes with exact quotes, facts to verify (JSON). Today's date is supplied.</div></div>
+      <div class="node code"><div class="k">Check</div><div class="d">Quotes not found in the reply are dropped. Score = average, then caps; verdict by fixed thresholds.</div></div>
+      <div class="node"><div class="k">Output</div><div class="d">Score, verdict, evidence, cost</div></div>
+    </div>
+    <p class="small muted mt-12" id="rule"></p>
+  </div>
+
+  <div class="grid grid-2">
+    <div class="card">
+      <h2>Model</h2>
+      <div class="sub">Set in one place (<code>api/_lib/config.js</code> or the <code>LLM_MODEL</code> setting)</div>
+      <div id="modelBox" class="mt-12"></div>
+      <h3 class="mt-16">Why a proprietary API</h3>
+      <ul class="small" style="padding-left:18px;margin:8px 0 0">
+        <li>Reliable JSON output and multilingual input (Hindi tested) at low cost.</li>
+        <li>No GPU to run for a prototype; a pay-per-call cost that scales with use.</li>
+        <li>Swappable: Gemini or OpenAI with one setting; the eval script re-tests any swap.</li>
+      </ul>
+      <h3 class="mt-16">Trade-offs we accept</h3>
+      <ul class="small" style="padding-left:18px;margin:8px 0 0">
+        <li>Citizen text goes to a foreign API. A department that requires data to stay in India would need an India-hosted open model (hybrid).</li>
+        <li>Free-tier keys hit rate limits under load; production needs a billed key. The app retries automatically.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h2>Cost calculator</h2>
+      <div class="sub">Uses real token counts from this browser when available</div>
+      <div class="grid grid-2 mt-12" style="gap:10px">
+        <label class="field"><span>Model</span><select id="cm"></select></label>
+        <label class="field"><span>Officers</span><input type="text" id="co" value="10000"></label>
+        <label class="field"><span>Grievances per officer / month</span><input type="text" id="cg" value="22"></label>
+        <label class="field"><span>AI sessions per grievance</span><input type="text" id="cs" value="1"></label>
+        <label class="field"><span>Input tokens / session</span><input type="text" id="ti" value="1707"></label>
+        <label class="field"><span>Output tokens / session</span><input type="text" id="to" value="313"></label>
+      </div>
+      <p class="hint" id="tokNote"></p>
+      <div class="statline mt-12" style="grid-template-columns:repeat(3,1fr)">
+        <div class="stat"><div class="k">Per session</div><div class="v" id="r1">—</div></div>
+        <div class="stat"><div class="k">AI per month</div><div class="v" id="r2">—</div></div>
+        <div class="stat"><div class="k">+ hosting / month</div><div class="v" id="r3">—</div></div>
+      </div>
+      <p class="hint mt-8">22 grievances per officer per month = 26.45L disposals a year ÷ 12 ÷ 10,000 officers. Hosting = Vercel Pro ($20/month). Exchange rate: <span id="fx"></span>.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><h2>Measured from real usage</h2><div class="sub" id="statsSub">Every live Judge check and Copilot draft is logged in Supabase (numbers only, never citizen text)</div></div></div>
+    <div id="stats"></div>
+  </div>
+
+  <div class="card">
+    <h2>What we'd change at scale</h2>
+    <div class="grid grid-3 mt-12">
+      <div class="info-box"><b>Batch the Judge overnight.</b> Closures don't need an instant score; batch APIs list about 50% off.</div>
+      <div class="info-box"><b>Embeddings when the SOP base grows.</b> At 22 sections BM25 is fast, free and explainable; with thousands of official SOPs we would add vector search (Supabase pgvector).</div>
+      <div class="info-box"><b>Cheaper model if it passes our tests.</b> Run <code>npm run eval</code> on the candidate; switch only if agreement holds.</div>
+      <div class="info-box"><b>Keep answers short.</b> Output tokens cost several times more than input; the JSON format and word limits are our main cost lever.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Honest limits</h2>
+    <ul class="list-clean mt-8">
+      <li><b>Illustrative SOPs.</b> The knowledge base below was written for this prototype, modelled on how scheme rules are structured. It is not official text.</li>
+      <li><b>The Judge reads text; it cannot check records.</b> It lists the facts a supervisor should verify instead of calling them true or false.</li>
+      <li><b>No outcome signals yet.</b> Whether the citizen re-filed or appealed is what would make the Judge hard to game with good-sounding text. That needs CPGRAMS data access.</li>
+      <li><b>No case-record integration.</b> The officer types the findings; in production they would come from the scheme database.</li>
+      <li><b>Usage log, not case records.</b> Supabase stores the SOP knowledge base and a numbers-only log of each AI request (tokens, cost, verdict, time). Complaint and reply text are never stored.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-head"><div><h2>Knowledge base</h2><div class="sub" id="kbSub"></div></div></div>
+    <div class="warn-box" id="kbNotice"></div>
+    <div id="kb" class="mt-12"></div>
+  </div>
+</main>
+
+<script src="/assets/app.js"></script>
+<script src="/assets/how.js"></script>
+</body>
+</html>
